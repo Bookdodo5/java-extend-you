@@ -1,5 +1,5 @@
 package model.entity.word;
 
 public enum PartOfSpeech {
-    NOUN, VERB, PROPERTY, CONDITION
+    NOUN, VERB, PROPERTY, CONDITION, CONJUNCTION
 }

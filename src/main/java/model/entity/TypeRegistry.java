@@ -51,6 +51,13 @@ public class TypeRegistry {
         return newType;
     }
 
+    private static ConjunctionType registerConjunction(String typeId) {
+        String spritePath = getSpritePath(typeId);
+        ConjunctionType newType = new ConjunctionType(ZIndexCounter++, typeId, spritePath);
+        REGISTRY.put(typeId, newType);
+        return newType;
+    }
+
     public static EntityType getType(String typeId) {
         return REGISTRY.get(typeId);
     }
@@ -78,8 +85,8 @@ public class TypeRegistry {
     public static final EntityType GIT = registerEntity("git", AnimationStyle.WOBBLE);
     public static final EntityType CHIP = registerEntity("chip", AnimationStyle.WOBBLE);
 
-    public static final NounType TEXT_JAVA = registerNoun("text_baba", JAVA);
-    public static final NounType TEXT_PYTHON = registerNoun("text_keke", PYTHON);
+    public static final NounType TEXT_JAVA = registerNoun("text_java", JAVA);
+    public static final NounType TEXT_PYTHON = registerNoun("text_python", PYTHON);
     public static final NounType TEXT_STUDENT = registerNoun("text_student", STUDENT);
     public static final NounType TEXT_WALL = registerNoun("text_wall", WALL);
     public static final NounType TEXT_LAVA = registerNoun("text_lava", LAVA);
@@ -89,8 +96,8 @@ public class TypeRegistry {
     public static final NounType TEXT_DOOR = registerNoun("text_door", DOOR);
     public static final NounType TEXT_KEY = registerNoun("text_key", KEY);
     public static final NounType TEXT_TILE = registerNoun("text_tile", TILE);
-    public static final NounType TEXT_WARNING = registerNoun("text_java", WARNING);
-    public static final NounType TEXT_ERROR = registerNoun("text_java", ERROR);
+    public static final NounType TEXT_WARNING = registerNoun("text_warning", WARNING);
+    public static final NounType TEXT_ERROR = registerNoun("text_error", ERROR);
     public static final NounType TEXT_CODE = registerNoun("text_code", CODE);
     public static final NounType TEXT_FILE = registerNoun("text_file", FILE);
     public static final NounType TEXT_DATABASE = registerNoun("text_database", DATABASE);
@@ -118,7 +125,8 @@ public class TypeRegistry {
     public static final PropertyType ABSTRACT = registerProperty("text_abstract");
 
     public static final ConditionType ON = registerCondition("text_on");
-    public static final ConditionType AND = registerCondition("text_and");
     public static final ConditionType NEAR = registerCondition("text_near");
     public static final ConditionType FACING = registerCondition("text_facing");
+
+    public static final ConjunctionType AND = registerConjunction("text_and");
 }

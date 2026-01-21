@@ -1,4 +1,4 @@
-package logic.rule;
+package logic.rule.evaluator;
 
 import model.entity.Entity;
 import model.entity.EntityType;
@@ -33,7 +33,7 @@ public class RuleEvaluator {
                 .toList();
     }
 
-    public List<Transformation> getTransform(LevelMap levelMap) {
+    public List<Transformation> getTransformations(LevelMap levelMap) {
         return ruleset.getRules().stream()
                 .filter(rule -> rule.getEffect().getPartOfSpeech() == PartOfSpeech.NOUN)
                 .flatMap(rule -> {

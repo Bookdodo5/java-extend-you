@@ -6,6 +6,7 @@ import model.entity.word.PropertyType;
 import model.map.LevelMap;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ruleset {
     private final ArrayList<Rule> rules;
@@ -14,8 +15,8 @@ public class Ruleset {
         rules = new ArrayList<>();
     }
 
-    public void addRule(Rule rule) {
-        rules.add(rule);
+    public void addRules(List<Rule> ruleList) {
+        rules.addAll(ruleList);
     }
 
     public void reset() {

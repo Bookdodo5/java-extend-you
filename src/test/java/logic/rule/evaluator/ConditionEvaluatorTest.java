@@ -1,11 +1,9 @@
-package logic;
+package logic.rule.evaluator;
 
 
-import logic.rule.ConditionEvaluator;
 import model.entity.Direction;
 import model.entity.Entity;
 import model.entity.TypeRegistry;
-import model.entity.word.ConditionType;
 import model.map.LevelMap;
 import model.rule.Condition;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +39,7 @@ class ConditionEvaluatorTest {
     @Test
     void testOnCondition() {
         Entity onText = new Entity(TypeRegistry.ON, 0, 0);
-        Entity rockText = new Entity(TypeRegistry.ROCK, 1, 1);
+        Entity rockText = new Entity(TypeRegistry.TEXT_ROCK, 1, 1);
         Condition onRock = new Condition(onText, rockText);
         ArrayList<Condition> conditions = new ArrayList<>();
         conditions.add(onRock);
@@ -57,7 +55,7 @@ class ConditionEvaluatorTest {
     @Test
     void testNearCondition() {
         Entity nearText = new Entity(TypeRegistry.NEAR, 0, 0);
-        Entity rockText = new Entity(TypeRegistry.ROCK, 1, 1);
+        Entity rockText = new Entity(TypeRegistry.TEXT_ROCK, 1, 1);
         Condition nearRock = new Condition(nearText, rockText);
         ArrayList<Condition> conditions = new ArrayList<>();
         conditions.add(nearRock);
@@ -85,7 +83,7 @@ class ConditionEvaluatorTest {
     @Test
     void testFacingCondition() {
         Entity facingText = new Entity(TypeRegistry.FACING, 0, 0);
-        Entity rockText = new Entity(TypeRegistry.ROCK, 1, 1);
+        Entity rockText = new Entity(TypeRegistry.TEXT_ROCK, 1, 1);
         Condition facingRock = new Condition(facingText, rockText);
         ArrayList<Condition> conditions = new ArrayList<>();
         conditions.add(facingRock);
@@ -105,7 +103,7 @@ class ConditionEvaluatorTest {
         levelMap.moveEntity(rock, 5, 4);
         assertTrue(evaluator.evaluate(java, conditions, levelMap));
 
-        // java is at (5,5) facing UP, rock is at (5,3)
+        // java is at (5,5) facing UP, rock is at (5,3)5
         levelMap.moveEntity(rock, 5, 3);
         assertFalse(evaluator.evaluate(java, conditions, levelMap));
     }

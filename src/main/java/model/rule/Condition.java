@@ -3,6 +3,7 @@ package model.rule;
 import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.word.ConditionType;
+import model.entity.word.NounType;
 
 import java.util.UUID;
 
@@ -13,10 +14,13 @@ public class Condition {
     private final Entity parameterText;
 
     public Condition(Entity conditionText, Entity parameterText) {
+        if(! (parameterText.getType() instanceof NounType)) {
+            throw new IllegalArgumentException("Parameter text must be of type NounType");
+        }
         this.conditionText = conditionText;
         this.parameterText = parameterText;
-        this.condition = (ConditionType)conditionText.getType();
-        this.parameter = parameterText.getType();
+        this.condition = (ConditionType) conditionText.getType();
+        this.parameter = ((NounType) parameterText.getType()).getReferencedType();
     }
 
     public ConditionType getCondition() {

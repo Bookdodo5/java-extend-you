@@ -1,6 +1,5 @@
 package model.map;
 
-import model.entity.Direction;
 import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.TypeRegistry;
@@ -10,18 +9,19 @@ import java.util.Scanner;
 
 /**
  * <h1><b>Utility class for loading maps from CSV.</b></h1>
- * 
- * <h2>Example (level1.csv):</h2>
+ * <b>, : tile separator</b><br/>
+ * <b>+ : entity stacking</b><br/>
+ * <b>. : empty tile</b><br/><br/>
+ *
+ * Example (level1.csv):<br/>
  * ---------------------------------<br/>
  * 5,3<br/>
  * wall+rock,wall,text_java,text_is,text_you<br/>
  * java,.,text_flag,text_is,text_win<br/>
  * .,.,flag,.,rock<br/>
  * ---------------------------------<br/>
- * <b>, : tile separator</b><br/>
- * <b>+ : entity stacking</b><br/>
- * <b>. : empty tile</b>
  */
+
 public class LevelLoader {
 
     private LevelLoader() {}
