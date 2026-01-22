@@ -12,28 +12,26 @@ import java.util.List;
 import model.rule.Transformation;
 
 public class RuleEvaluator {
-    private final Ruleset ruleset;
     private final ConditionEvaluator conditionEvaluator;
 
-    public RuleEvaluator(Ruleset ruleset) {
-        this.ruleset = ruleset;
+    public RuleEvaluator() {
         conditionEvaluator = new ConditionEvaluator();
     }
 
-    public boolean hasProperty(Entity entity, PropertyType property, LevelMap levelMap) {
+    public boolean hasProperty(Entity entity, PropertyType property, LevelMap levelMap, Ruleset ruleset) {
         return ruleset.getRules().stream()
                 .filter(rule -> rule.getEffect() == property)
                 .filter(rule -> rule.getSubject() == entity.getType())
                 .anyMatch(rule -> conditionEvaluator.evaluate(entity, rule.getConditions(), levelMap));
     }
 
-    public List<Entity> getEntitiesWithProperty(PropertyType property, LevelMap levelMap) {
+    public List<Entity> getEntitiesWithProperty(PropertyType property, LevelMap levelMap, Ruleset ruleset) {
         return levelMap.getEntities().stream()
-                .filter(entity -> hasProperty(entity, property, levelMap))
+                .filter(entity -> hasProperty(entity, property, levelMap, ruleset))
                 .toList();
     }
 
-    public List<Transformation> getTransformations(LevelMap levelMap) {
+    public List<Transformation> getTransformations(LevelMap levelMap, Ruleset ruleset) {
         return ruleset.getRules().stream()
                 .filter(rule -> rule.getEffect().getPartOfSpeech() == PartOfSpeech.NOUN)
                 .flatMap(rule -> {

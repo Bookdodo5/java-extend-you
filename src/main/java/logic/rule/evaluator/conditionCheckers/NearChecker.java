@@ -7,7 +7,7 @@ import model.rule.Condition;
 
 import java.util.List;
 
-public class NearChecker implements IConditionChecker {
+public class NearChecker implements ConditionChecker {
     @Override
     public boolean isSatisfied(Entity entity, Condition condition, LevelMap levelMap) {
         int entityX = entity.getPosX();

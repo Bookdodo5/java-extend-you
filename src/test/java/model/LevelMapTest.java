@@ -1,6 +1,5 @@
 package model;
 
-import model.entity.Direction;
 import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.AnimationStyle;
@@ -33,11 +32,11 @@ class LevelMapTest {
     }
 
     @Test
-    void testMoveEntity() {
+    void testSetEntityPosition() {
         Entity player = new Entity(javaType, 1, 1);
         levelMap.addEntity(player);
 
-        levelMap.moveEntity(player, 2, 2);
+        levelMap.setEntityPosition(player, 2, 2);
 
         assertEquals(2, player.getPosX());
         assertEquals(2, player.getPosY());

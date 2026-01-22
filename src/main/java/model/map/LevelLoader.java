@@ -31,13 +31,12 @@ public class LevelLoader {
         InputStream inputStream = LevelLoader.class.getClassLoader().getResourceAsStream(fileName);
 
         if (inputStream == null) {
-            System.out.println("Cannot find file!");
-            return null;
+            throw new IllegalArgumentException("File not found: " + fileName);
         }
 
         try (Scanner myReader = new Scanner(inputStream)) {
             if (!myReader.hasNextLine()) return null;
-            String[] mapSize = myReader.nextLine().split(",");
+            String[] mapSize = myReader.nextLine().trim().split(",");
             int width = Integer.parseInt(mapSize[0]);
             int height = Integer.parseInt(mapSize[1]);
 
@@ -45,7 +44,7 @@ public class LevelLoader {
 
             for (int i = 0; i < height; i++) {
                 if (!myReader.hasNextLine()) break;
-                String[] cells = myReader.nextLine().split(",");
+                String[] cells = myReader.nextLine().trim().split(",");
 
                 for (int j = 0; j < Math.min(width, cells.length); j++) {
                     String cellData = cells[j].trim();
@@ -61,8 +60,8 @@ public class LevelLoader {
             }
             return levelMap;
         } catch (Exception e) {
-            System.out.println("File contains string with incorrect format!");
-            return null;
+            System.err.println(e.getMessage());
+            throw new LevelLoadException("Error loading level from file: " + fileName, e);
         }
     }
 }

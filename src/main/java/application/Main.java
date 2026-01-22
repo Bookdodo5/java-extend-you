@@ -5,7 +5,10 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import logic.GameLogic;
+import logic.TurnLogic;
+import model.map.LevelLoadException;
+import model.map.LevelLoader;
+import model.map.LevelMap;
 import view.GameScreen;
 
 import static application.Constant.TARGET_WIDTH;
@@ -33,8 +36,18 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.show();
 
-        GameLogic logic = new GameLogic();
+        LevelMap map;
+        try {
+            map = LevelLoader.loadLevel("mapTest.csv");
+        } catch (LevelLoadException | IllegalArgumentException e) {
+            System.err.println(e.getMessage());
+            return;
+        }
+
+        TurnLogic logic = new TurnLogic();
         GameScreen screen = new GameScreen(TARGET_WIDTH, TARGET_HEIGHT);
+
+        logic.setLevelMap(map);
 
         root.widthProperty().addListener((obs, oldVal, newVal) -> {
             updateScale(screen, root);

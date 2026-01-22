@@ -199,15 +199,6 @@ public class SyntaxValidatorTest {
         System.out.println("Input entities:");
         sentence.forEach(e -> System.out.println(e + " -> " + e.getType().getTypeId()));
 
-        System.out.println("Produced rules:");
-        for (int i = 0; i < rules.size(); i++) {
-            Rule r = rules.get(i);
-            System.out.println("Rule " + i + ": subject=" + r.getSubject().getTypeId() + ", verb=" + r.getVerb().getTypeId() + ", effect=" + r.getEffect().getTypeId());
-            for (Condition c : r.getConditions()) {
-                System.out.println("  Condition: cond=" + c.getCondition().getTypeId() + ", param=" + c.getParameter().getTypeId());
-            }
-        }
-
         Rule r1 = rules.get(0);
         assertEquals(TypeRegistry.GIT, r1.getSubject());
         assertEquals(TypeRegistry.IS, r1.getVerb());

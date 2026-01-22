@@ -7,7 +7,7 @@ import model.rule.Condition;
 
 import java.util.List;
 
-public class OnChecker implements IConditionChecker {
+public class OnChecker implements ConditionChecker {
     @Override
     public boolean isSatisfied(Entity entity, Condition condition, LevelMap levelMap) {
         int checkX = entity.getPosX();

@@ -4,6 +4,6 @@ import model.entity.Entity;
 import model.map.LevelMap;
 import model.rule.Condition;
 
-public interface IConditionChecker {
+public interface ConditionChecker {
     boolean isSatisfied(Entity entity, Condition condition, LevelMap levelMap);
 }

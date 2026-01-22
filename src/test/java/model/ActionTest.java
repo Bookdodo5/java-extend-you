@@ -1,15 +1,7 @@
 package model;
 
-import model.action.ActionStack;
-import model.action.CompositeAction;
-import model.action.CreateAction;
-import model.action.DestroyAction;
-import model.action.MoveAction;
-import model.action.RotateAction;
-import model.entity.Direction;
-import model.entity.Entity;
-import model.entity.EntityType;
-import model.entity.AnimationStyle;
+import model.action.*;
+import model.entity.*;
 import model.map.LevelMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,11 +25,26 @@ class ActionTest {
 
     @Test
     void testMoveAction() {
-        MoveAction move = new MoveAction(levelMap, entity, 1, 1);
+        MoveAction move = new MoveAction(levelMap, entity, Direction.DOWN);
 
         move.execute();
-        assertEquals(1, entity.getPosX());
+        assertEquals(0, entity.getPosX());
         assertEquals(1, entity.getPosY());
+        assertEquals(Direction.DOWN, entity.getDirection());
+
+        move.undo();
+        assertEquals(0, entity.getPosX());
+        assertEquals(0, entity.getPosY());
+        assertEquals(Direction.RIGHT, entity.getDirection());
+    }
+
+    @Test
+    void testTeleportAction() {
+        TeleportAction move = new TeleportAction(levelMap, entity, 5, 5);
+
+        move.execute();
+        assertEquals(5, entity.getPosX());
+        assertEquals(5, entity.getPosY());
 
         move.undo();
         assertEquals(0, entity.getPosX());
@@ -100,25 +107,31 @@ class ActionTest {
     @Test
     void testActionStackUndoRedo() {
         CompositeAction composite = new CompositeAction();
-        EntityType pythonType = new EntityType(2, "python", "python.png", AnimationStyle.CHARACTER);
-        composite.add(new MoveAction(levelMap, entity, 5, 5));
-        composite.add(new CreateAction(levelMap, pythonType, 6, 6));
+        composite.add(new MoveAction(levelMap, entity, Direction.DOWN));
+        composite.add(new CreateAction(levelMap, TypeRegistry.PYTHON, 6, 6));
 
         composite.execute();
         actionStack.newAction(composite);
 
-        assertEquals(5, entity.getPosX());
+        assertEquals(1, entity.getPosY());
         assertEquals(1, levelMap.getEntitiesAt(6, 6).size());
+        assertEquals(1, levelMap.getEntitiesAt(0, 1).size());
+        assertEquals(Direction.DOWN, levelMap.getEntitiesAt(0, 1).get(0).getDirection());
         assertEquals(2, levelMap.getEntities().size());
 
         actionStack.undo();
-        assertEquals(0, entity.getPosX());
+        assertEquals(0, entity.getPosY());
         assertEquals(0, levelMap.getEntitiesAt(6, 6).size());
+        assertEquals(0, levelMap.getEntitiesAt(0, 1).size());
+        assertEquals(1, levelMap.getEntitiesAt(0, 0).size());
+        assertEquals(Direction.RIGHT, levelMap.getEntitiesAt(0, 0).get(0).getDirection());
         assertEquals(1, levelMap.getEntities().size());
 
         actionStack.redo();
-        assertEquals(5, entity.getPosX());
+        assertEquals(1, entity.getPosY());
         assertEquals(1, levelMap.getEntitiesAt(6, 6).size());
+        assertEquals(1, levelMap.getEntitiesAt(0, 1).size());
+        assertEquals(Direction.DOWN, levelMap.getEntitiesAt(0, 1).get(0).getDirection());
         assertEquals(2, levelMap.getEntities().size());
     }
 }

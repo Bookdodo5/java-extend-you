@@ -50,7 +50,7 @@ public class LevelMap {
         entities.remove(entity);
     }
 
-    public void moveEntity(Entity entity, int newX, int newY) {
+    public void setEntityPosition(Entity entity, int newX, int newY) {
         if (!entities.contains(entity)) {
             throw new IllegalArgumentException("Entity with ID " + entity.getEntityId() + " does not exist in this map.");
         }

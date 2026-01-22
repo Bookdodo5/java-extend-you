@@ -48,7 +48,7 @@ class ConditionEvaluatorTest {
         assertFalse(evaluator.evaluate(java, conditions, levelMap));
 
         //rock at (5,5) + java at (5,5)
-        levelMap.moveEntity(rock, 5, 5);
+        levelMap.setEntityPosition(rock, 5, 5);
         assertTrue(evaluator.evaluate(java, conditions, levelMap));
     }
 
@@ -64,19 +64,19 @@ class ConditionEvaluatorTest {
         assertTrue(evaluator.evaluate(java, conditions, levelMap));
 
         //rock at (8,8) + baba at (5,5)
-        levelMap.moveEntity(rock, 8, 8);
+        levelMap.setEntityPosition(rock, 8, 8);
         assertFalse(evaluator.evaluate(java, conditions, levelMap));
 
         //rock at (7,5) + baba at (5,5)
-        levelMap.moveEntity(rock, 7, 5);
+        levelMap.setEntityPosition(rock, 7, 5);
         assertFalse(evaluator.evaluate(java, conditions, levelMap));
 
         //rock at (5,5) + baba at (5,5)
-        levelMap.moveEntity(rock, 5, 5);
+        levelMap.setEntityPosition(rock, 5, 5);
         assertTrue(evaluator.evaluate(java, conditions, levelMap));
 
         //rock at (4,4) + baba at (5,5)
-        levelMap.moveEntity(rock, 4, 4);
+        levelMap.setEntityPosition(rock, 4, 4);
         assertTrue(evaluator.evaluate(java, conditions, levelMap));
     }
 
@@ -100,11 +100,11 @@ class ConditionEvaluatorTest {
         assertFalse(evaluator.evaluate(java, conditions, levelMap));
 
         // java is at (5,5) facing UP, rock is at (5,4)
-        levelMap.moveEntity(rock, 5, 4);
+        levelMap.setEntityPosition(rock, 5, 4);
         assertTrue(evaluator.evaluate(java, conditions, levelMap));
 
         // java is at (5,5) facing UP, rock is at (5,3)5
-        levelMap.moveEntity(rock, 5, 3);
+        levelMap.setEntityPosition(rock, 5, 3);
         assertFalse(evaluator.evaluate(java, conditions, levelMap));
     }
 }
