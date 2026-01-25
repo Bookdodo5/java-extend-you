@@ -112,7 +112,7 @@ public class SyntaxValidatorTest {
         Rule r = rules.get(0);
         assertEquals(TypeRegistry.FILE, r.getSubject());
         assertEquals(TypeRegistry.IS, r.getVerb());
-        assertEquals(TypeRegistry.TEXT_ERROR, r.getEffect());
+        assertEquals(TypeRegistry.ERROR, r.getEffect());
         assertEquals(3, r.getConditions().size());
 
         Condition c1 = r.getConditions().get(0);
@@ -152,7 +152,7 @@ public class SyntaxValidatorTest {
         Rule r2 = rules.get(1);
         assertEquals(TypeRegistry.CHIP, r2.getSubject());
         assertEquals(TypeRegistry.EXTEND, r2.getVerb());
-        assertEquals(TypeRegistry.TEXT_PAPER, r2.getEffect());
+        assertEquals(TypeRegistry.PAPER, r2.getEffect());
         assertEquals(0, r2.getConditions().size());
     }
 
@@ -173,7 +173,7 @@ public class SyntaxValidatorTest {
         Rule r = rules.get(0);
         assertEquals(TypeRegistry.JAVA, r.getSubject());
         assertEquals(TypeRegistry.IS, r.getVerb());
-        assertEquals(TypeRegistry.TEXT_FLAG, r.getEffect());
+        assertEquals(TypeRegistry.FLAG, r.getEffect());
         assertEquals(0, r.getConditions().size());
     }
 
@@ -196,25 +196,22 @@ public class SyntaxValidatorTest {
         List<Rule> rules = validator.validate(List.of(sentence));
         assertEquals(3, rules.size());
 
-        System.out.println("Input entities:");
-        sentence.forEach(e -> System.out.println(e + " -> " + e.getType().getTypeId()));
-
         Rule r1 = rules.get(0);
         assertEquals(TypeRegistry.GIT, r1.getSubject());
         assertEquals(TypeRegistry.IS, r1.getVerb());
-        assertEquals(TypeRegistry.TEXT_ERROR, r1.getEffect());
+        assertEquals(TypeRegistry.ERROR, r1.getEffect());
         assertEquals(0, r1.getConditions().size());
 
         Rule r2 = rules.get(1);
         assertEquals(TypeRegistry.GIT, r2.getSubject());
         assertEquals(TypeRegistry.IS, r2.getVerb());
-        assertEquals(TypeRegistry.TEXT_PYTHON, r2.getEffect());
+        assertEquals(TypeRegistry.PYTHON, r2.getEffect());
         assertEquals(0, r2.getConditions().size());
 
         Rule r3 = rules.get(2);
         assertEquals(TypeRegistry.PYTHON, r3.getSubject());
         assertEquals(TypeRegistry.HAS, r3.getVerb());
-        assertEquals(TypeRegistry.TEXT_ERROR, r3.getEffect());
+        assertEquals(TypeRegistry.ERROR, r3.getEffect());
         assertEquals(1, r3.getConditions().size());
     }
 

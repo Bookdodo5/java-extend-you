@@ -76,7 +76,7 @@ class RuleEvaluatorTest {
         // PAPER IS PUSH
         Rule rule2 = createSimpleRule(TypeRegistry.TEXT_PAPER, TypeRegistry.PUSH);
 
-        ruleset.addRules(List.of(rule1, rule2));
+        ruleset.setRules(List.of(rule1, rule2));
 
         assertTrue(evaluator.hasProperty(javaEntity, TypeRegistry.YOU, levelMap, ruleset));
         assertTrue(evaluator.hasProperty(rockEntity, TypeRegistry.PUSH, levelMap, ruleset));
@@ -89,7 +89,7 @@ class RuleEvaluatorTest {
         // JAVA ON PAPER IS YOU
         Rule rule = createRuleWithCondition(TypeRegistry.TEXT_JAVA, TypeRegistry.YOU,
                                            TypeRegistry.ON, TypeRegistry.TEXT_PAPER);
-        ruleset.addRules(List.of(rule));
+        ruleset.setRules(List.of(rule));
 
         // Java is not on rock
         assertFalse(evaluator.hasProperty(javaEntity, TypeRegistry.YOU, levelMap, ruleset));
@@ -109,7 +109,7 @@ class RuleEvaluatorTest {
     void testGetEntitiesWithPropertySingle() {
         // JAVA IS YOU
         Rule rule = createSimpleRule(TypeRegistry.TEXT_JAVA, TypeRegistry.YOU);
-        ruleset.addRules(List.of(rule));
+        ruleset.setRules(List.of(rule));
 
         List<Entity> entities = evaluator.getEntitiesWithProperty(TypeRegistry.YOU, levelMap, ruleset);
         assertEquals(1, entities.size());
@@ -124,7 +124,7 @@ class RuleEvaluatorTest {
         // PAPER IS PUSH
         Rule rule2 = createSimpleRule(TypeRegistry.TEXT_PAPER, TypeRegistry.PUSH);
 
-        ruleset.addRules(List.of(rule1, rule2));
+        ruleset.setRules(List.of(rule1, rule2));
 
         List<Entity> entities = evaluator.getEntitiesWithProperty(TypeRegistry.PUSH, levelMap, ruleset);
         assertEquals(2, entities.size());
@@ -137,7 +137,7 @@ class RuleEvaluatorTest {
         // JAVA FACING PAPER IS WIN
         Rule rule = createRuleWithCondition(TypeRegistry.TEXT_JAVA, TypeRegistry.WIN,
                                            TypeRegistry.FACING, TypeRegistry.TEXT_PAPER);
-        ruleset.addRules(List.of(rule));
+        ruleset.setRules(List.of(rule));
 
         // Java is facing rock
         List<Entity> entities = evaluator.getEntitiesWithProperty(TypeRegistry.WIN, levelMap, ruleset);
@@ -160,7 +160,7 @@ class RuleEvaluatorTest {
     void testGetTransformationsSingle() {
         // JAVA IS PAPER
         Rule rule = createSimpleRule(TypeRegistry.TEXT_JAVA, TypeRegistry.TEXT_PAPER);
-        ruleset.addRules(List.of(rule));
+        ruleset.setRules(List.of(rule));
 
         List<Transformation> transformations = evaluator.getTransformations(levelMap, ruleset);
         assertEquals(1, transformations.size());
@@ -176,7 +176,7 @@ class RuleEvaluatorTest {
         // PAPER IS FLAG
         Rule rule2 = createSimpleRule(TypeRegistry.TEXT_PAPER, TypeRegistry.TEXT_FLAG);
 
-        ruleset.addRules(List.of(rule1, rule2));
+        ruleset.setRules(List.of(rule1, rule2));
 
         List<Transformation> transformations = evaluator.getTransformations(levelMap, ruleset);
         assertEquals(2, transformations.size());
@@ -193,7 +193,7 @@ class RuleEvaluatorTest {
         // JAVA ON PAPER IS FLAG
         Rule rule = createRuleWithCondition(TypeRegistry.TEXT_JAVA, TypeRegistry.TEXT_FLAG,
                                            TypeRegistry.ON, TypeRegistry.TEXT_PAPER);
-        ruleset.addRules(List.of(rule));
+        ruleset.setRules(List.of(rule));
 
         // Java is not on rock
         List<Transformation> transformations = evaluator.getTransformations(levelMap, ruleset);
@@ -205,5 +205,35 @@ class RuleEvaluatorTest {
         assertEquals(1, transformations.size());
         assertEquals(javaEntity, transformations.getFirst().getSource());
         assertEquals(TypeRegistry.FLAG, transformations.getFirst().getTargetType());
+    }
+
+    @Test
+    void testGetEntitiesWithPropertyAt() {
+        // JAVA IS YOU
+        Rule rule = createSimpleRule(TypeRegistry.TEXT_JAVA, TypeRegistry.YOU);
+        ruleset.setRules(List.of(rule));
+
+        List<Entity> entities = evaluator.getEntitiesWithPropertyAt(TypeRegistry.YOU, levelMap, ruleset, 5, 5);
+        assertEquals(1, entities.size());
+        assertTrue(entities.contains(javaEntity));
+
+        entities = evaluator.getEntitiesWithPropertyAt(TypeRegistry.YOU, levelMap, ruleset, 6, 5);
+        assertTrue(entities.isEmpty());
+    }
+
+    @Test
+    void testHasEntitiesWithPropertyAt() {
+        // JAVA IS YOU
+        Rule rule = createSimpleRule(TypeRegistry.TEXT_JAVA, TypeRegistry.YOU);
+        ruleset.setRules(List.of(rule));
+
+        boolean result1 = evaluator.hasEntityWithPropertyAt(TypeRegistry.YOU, levelMap, ruleset, 5, 5);
+        assertTrue(result1);
+
+        boolean result2 = evaluator.hasEntityWithPropertyAt(TypeRegistry.PUSH, levelMap, ruleset, 5, 5);
+        assertFalse(result2);
+
+        boolean result3 = evaluator.hasEntityWithPropertyAt(TypeRegistry.YOU, levelMap, ruleset, 6, 5);
+        assertFalse(result3);
     }
 }

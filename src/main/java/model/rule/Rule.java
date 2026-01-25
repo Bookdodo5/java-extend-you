@@ -4,6 +4,7 @@ import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.word.EffectType;
 import model.entity.word.NounType;
+import model.entity.word.PropertyType;
 import model.entity.word.VerbType;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class Rule {
     private final EntityType subject;
     private final VerbType verb;
-    private final EffectType effect;
+    private final EntityType effect;
     private final Entity subjectText;
     private final Entity verbText;
     private final Entity effectText;
@@ -24,7 +25,13 @@ public class Rule {
         this.conditions = conditions;
         this.subject = ((NounType)subjectText.getType()).getReferencedType();
         this.verb = (VerbType)verbText.getType();
-        this.effect = (EffectType)effectText.getType();
+
+        EffectType effectType = (EffectType)effectText.getType();
+        if (effectType instanceof NounType nounType) {
+            this.effect = nounType.getReferencedType();
+        } else {
+            this.effect = effectType;
+        }
     }
 
     public EntityType getSubject() {
@@ -35,7 +42,7 @@ public class Rule {
         return verb;
     }
 
-    public EffectType getEffect() {
+    public EntityType getEffect() {
         return effect;
     }
 

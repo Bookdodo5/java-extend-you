@@ -4,12 +4,13 @@ import model.entity.Entity;
 import model.entity.EntityType;
 import model.map.LevelMap;
 import model.rule.Condition;
+import model.rule.Ruleset;
 
 import java.util.List;
 
 public class NearChecker implements ConditionChecker {
     @Override
-    public boolean isSatisfied(Entity entity, Condition condition, LevelMap levelMap) {
+    public boolean isSatisfied(Entity entity, Condition condition, LevelMap levelMap, Ruleset ruleset) {
         int entityX = entity.getPosX();
         int entityY = entity.getPosY();
         EntityType targetNear = condition.getParameter();

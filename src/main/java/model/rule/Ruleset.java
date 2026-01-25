@@ -1,10 +1,5 @@
 package model.rule;
 
-import model.entity.Entity;
-import model.entity.EntityType;
-import model.entity.word.PropertyType;
-import model.map.LevelMap;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +10,8 @@ public class Ruleset {
         rules = new ArrayList<>();
     }
 
-    public void addRules(List<Rule> ruleList) {
+    public void setRules(List<Rule> ruleList) {
+        reset();
         rules.addAll(ruleList);
     }
 

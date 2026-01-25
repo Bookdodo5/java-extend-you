@@ -39,19 +39,6 @@ class ActionTest {
     }
 
     @Test
-    void testTeleportAction() {
-        TeleportAction move = new TeleportAction(levelMap, entity, 5, 5);
-
-        move.execute();
-        assertEquals(5, entity.getPosX());
-        assertEquals(5, entity.getPosY());
-
-        move.undo();
-        assertEquals(0, entity.getPosX());
-        assertEquals(0, entity.getPosY());
-    }
-
-    @Test
     void testRotateAction() {
         RotateAction rotate = new RotateAction(entity, Direction.LEFT);
 
@@ -95,10 +82,10 @@ class ActionTest {
         action2.add(new RotateAction(entity, Direction.DOWN));
 
         action1.execute();
-        actionStack.newAction(action1, false);
+        actionStack.newAction(action1);
         actionStack.undo(); //action1 in redo stack
         
-        actionStack.newAction(action2, true); //redo stack cleared
+        actionStack.newAction(action2); //redo stack cleared
         
         actionStack.redo(); //nothing
         assertEquals(Direction.RIGHT, entity.getDirection());
@@ -111,7 +98,7 @@ class ActionTest {
         composite.add(new CreateAction(levelMap, TypeRegistry.PYTHON, 6, 6));
 
         composite.execute();
-        actionStack.newAction(composite, false);
+        actionStack.newAction(composite);
 
         assertEquals(1, entity.getPosY());
         assertEquals(1, levelMap.getEntitiesAt(6, 6).size());

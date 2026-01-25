@@ -2,6 +2,7 @@ package logic.rule.evaluator;
 
 import logic.rule.evaluator.conditionCheckers.FacingChecker;
 import logic.rule.evaluator.conditionCheckers.ConditionChecker;
+import logic.rule.evaluator.conditionCheckers.InstanceofChecker;
 import logic.rule.evaluator.conditionCheckers.NearChecker;
 import logic.rule.evaluator.conditionCheckers.OnChecker;
 import model.entity.Entity;
@@ -9,6 +10,7 @@ import model.entity.EntityType;
 import model.entity.TypeRegistry;
 import model.map.LevelMap;
 import model.rule.Condition;
+import model.rule.Ruleset;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,12 +23,13 @@ public class ConditionEvaluator {
         conditionCheckers.put(TypeRegistry.ON, new OnChecker());
         conditionCheckers.put(TypeRegistry.FACING, new FacingChecker());
         conditionCheckers.put(TypeRegistry.NEAR, new NearChecker());
+        conditionCheckers.put(TypeRegistry.INSTANCEOF, new InstanceofChecker());
     }
 
-    public boolean evaluate(Entity entity, List<Condition> conditions, LevelMap levelMap) {
+    public boolean evaluate(Entity entity, List<Condition> conditions, LevelMap levelMap, Ruleset ruleset) {
         for (Condition condition : conditions) {
             ConditionChecker checker = conditionCheckers.get(condition.getCondition());
-            if (checker == null || !checker.isSatisfied(entity, condition, levelMap)) {
+            if (checker == null || !checker.isSatisfied(entity, condition, levelMap, ruleset)) {
                 return false;
             }
         }

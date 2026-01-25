@@ -5,12 +5,13 @@ import model.entity.Entity;
 import model.entity.EntityType;
 import model.map.LevelMap;
 import model.rule.Condition;
+import model.rule.Ruleset;
 
 import java.util.List;
 
 public class FacingChecker implements ConditionChecker {
     @Override
-    public boolean isSatisfied(Entity entity, Condition condition, LevelMap levelMap) {
+    public boolean isSatisfied(Entity entity, Condition condition, LevelMap levelMap, Ruleset ruleset) {
         EntityType targetNear = condition.getParameter();
         Direction facing = entity.getDirection();
         int checkX = entity.getPosX() + facing.dx;

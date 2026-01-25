@@ -58,6 +58,5 @@ public class RuleParserTest {
         List<Rule> results = ruleParser.parseRules(levelMap);
 
         assertEquals(8, results.size());
-
     }
 }

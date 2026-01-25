@@ -62,10 +62,6 @@ public class TypeRegistry {
         return REGISTRY.get(typeId);
     }
 
-    public static Collection<EntityType> getAllTypes() {
-        return REGISTRY.values();
-    }
-
     public static final EntityType JAVA = registerEntity("java", AnimationStyle.WOBBLE);
     public static final EntityType PYTHON = registerEntity("python", AnimationStyle.WOBBLE);
     public static final EntityType XORGATE = registerEntity("xorgate", AnimationStyle.DIRECTIONAL);
@@ -104,30 +100,24 @@ public class TypeRegistry {
     public static final NounType TEXT_GIT = registerNoun("text_git", GIT);
     public static final NounType TEXT_CHIP = registerNoun("text_chip", CHIP);
 
-    public static final VerbType IS = registerVerb("text_is", true, true);
-    public static final VerbType HAS = registerVerb("text_has", true, false);
-    public static final VerbType EXTEND = registerVerb("text_extend", true, false);
+    public static final VerbType IS = registerVerb("is", true, true);
+    public static final VerbType HAS = registerVerb("has", true, false);
+    public static final VerbType EXTEND = registerVerb("extend", true, false);
 
-    public static final PropertyType YOU = registerProperty("text_you");
-    public static final PropertyType WIN = registerProperty("text_win");
-    public static final PropertyType DEFEAT = registerProperty("text_defeat");
-    public static final PropertyType PUSH = registerProperty("text_push");
-    public static final PropertyType STOP = registerProperty("text_stop");
-    public static final PropertyType SINK = registerProperty("text_sink");
-    public static final PropertyType HOT = registerProperty("text_hot");
-    public static final PropertyType MELT = registerProperty("text_melt");
-    public static final PropertyType OPEN = registerProperty("text_open");
-    public static final PropertyType SHUT = registerProperty("text_shut");
-    public static final PropertyType MOVE = registerProperty("text_move");
-    public static final PropertyType PRIVATE = registerProperty("text_private");
-    public static final PropertyType STATIC = registerProperty("text_static");
-    public static final PropertyType FINAL = registerProperty("text_final");
-    public static final PropertyType ABSTRACT = registerProperty("text_abstract");
+    public static final PropertyType YOU = registerProperty("you");
+    public static final PropertyType WIN = registerProperty("win");
+    public static final PropertyType DEFEAT = registerProperty("defeat");
+    public static final PropertyType PUSH = registerProperty("push");
+    public static final PropertyType STOP = registerProperty("stop");
+    public static final PropertyType SINK = registerProperty("sink");
+    public static final PropertyType HOT = registerProperty("hot");
+    public static final PropertyType MELT = registerProperty("melt");
+    public static final PropertyType MOVE = registerProperty("move");
 
-    public static final ConditionType ON = registerCondition("text_on");
-    public static final ConditionType NEAR = registerCondition("text_near");
-    public static final ConditionType FACING = registerCondition("text_facing");
-    public static final ConditionType INSTANCEOF = registerCondition("text_instanceof");
+    public static final ConditionType ON = registerCondition("on");
+    public static final ConditionType NEAR = registerCondition("near");
+    public static final ConditionType FACING = registerCondition("facing");
+    public static final ConditionType INSTANCEOF = registerCondition("instanceof");
 
-    public static final ConjunctionType AND = registerConjunction("text_and");
+    public static final ConjunctionType AND = registerConjunction("and");
 }

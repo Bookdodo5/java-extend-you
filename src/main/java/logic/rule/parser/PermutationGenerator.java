@@ -7,6 +7,16 @@ import java.util.List;
 
 public class PermutationGenerator {
 
+    public List<List<Entity>> generate(List<List<List<Entity>>> textTiles) {
+        List<List<Entity>> result = new ArrayList<>();
+
+        for(List<List<Entity>> line : textTiles) {
+            generateRecursive(result, line, new ArrayList<>());
+        }
+
+        return result;
+    }
+
     private void generateRecursive(List<List<Entity>> result, List<List<Entity>> processingLine, List<Entity> current) {
         if(processingLine.size() == current.size()) {
             result.add(new ArrayList<>(current));
@@ -20,15 +30,5 @@ public class PermutationGenerator {
             generateRecursive(result, processingLine, current);
             current.removeLast();
         }
-    }
-
-    public List<List<Entity>> generate(List<List<List<Entity>>> textTiles) {
-        List<List<Entity>> result = new ArrayList<>();
-
-        for(List<List<Entity>> line : textTiles) {
-            generateRecursive(result, line, new ArrayList<>());
-        }
-
-        return result;
     }
 }

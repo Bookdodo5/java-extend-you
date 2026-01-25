@@ -15,6 +15,10 @@ public class DestroyAction implements Action {
         this.entity = entity;
     }
 
+    public Entity getEntity() {
+        return entity;
+    }
+
     @Override
     public void execute() {
         levelMap.removeEntity(entity);

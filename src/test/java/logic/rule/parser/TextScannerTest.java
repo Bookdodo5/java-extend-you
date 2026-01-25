@@ -107,7 +107,7 @@ class TextScannerTest {
         levelMap.addEntity(new Entity(TypeRegistry.YOU, 4, 1));
 
         levelMap.addEntity(new Entity(TypeRegistry.TEXT_KEY, 3, 0));
-        levelMap.addEntity(new Entity(TypeRegistry.OPEN, 3, 2));
+        levelMap.addEntity(new Entity(TypeRegistry.SINK, 3, 2));
 
         levelMap.addEntity(new Entity(TypeRegistry.TEXT_PAPER, 0, 2));
         levelMap.addEntity(new Entity(TypeRegistry.IS, 1, 2));

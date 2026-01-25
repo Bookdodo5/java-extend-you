@@ -15,6 +15,18 @@ public class CompositeAction implements Action {
         actions.add(action);
     }
 
+    public void combine(CompositeAction other) {
+        actions.addAll(other.actions);
+    }
+
+    public int size() {
+        return actions.size();
+    }
+
+    public List<Action> getActions() {
+        return actions;
+    }
+
     @Override
     public void execute() {
         for (Action action : actions) {

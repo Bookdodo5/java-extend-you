@@ -4,36 +4,35 @@ import java.util.Stack;
 
 public class ActionStack {
 
-    private record TurnAction(CompositeAction action, boolean isRuleReparse) {
-    }
-
-    Stack<TurnAction> undoStack;
-    Stack<TurnAction> redoStack;
+    Stack<CompositeAction> undoStack;
+    Stack<CompositeAction> redoStack;
 
     public ActionStack() {
         undoStack = new Stack<>();
         redoStack = new Stack<>();
     }
 
-    public void newAction(CompositeAction action, boolean reparseRules) {
-        undoStack.push(new TurnAction(action, reparseRules));
+    public void newAction(CompositeAction compositeAction) {
+        undoStack.push(compositeAction);
         redoStack.clear();
     }
 
-    public boolean undo() {
-        if(undoStack.empty()) return false;
-        TurnAction undoAction = undoStack.pop();
-        undoAction.action.undo();
+    public void undo() {
+        if(undoStack.isEmpty()) {
+            return;
+        }
+        CompositeAction undoAction = undoStack.pop();
+        undoAction.undo();
         redoStack.push(undoAction);
-        return undoAction.isRuleReparse;
     }
 
-    public boolean redo() {
-        if(redoStack.empty()) return false;
-        TurnAction redoAction = redoStack.pop();
-        redoAction.action.execute();
+    public void redo() {
+        if(redoStack.isEmpty()) {
+            return;
+        }
+        CompositeAction redoAction = redoStack.pop();
+        redoAction.execute();
         undoStack.push(redoAction);
-        return redoAction.isRuleReparse;
     }
 
     public void clear() {
