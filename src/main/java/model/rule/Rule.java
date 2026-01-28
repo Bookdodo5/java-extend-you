@@ -9,6 +9,9 @@ import model.entity.word.VerbType;
 
 import java.util.List;
 
+/**
+ * Represents a rule consisting of a subject, verb, effect, and optional conditions.
+ */
 public class Rule {
     private final EntityType subject;
     private final VerbType verb;

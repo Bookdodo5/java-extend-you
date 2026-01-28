@@ -10,6 +10,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a 2D grid-based level map containing entities.
+ */
 public class LevelMap {
     private final int width;
     private final int height;
@@ -47,6 +50,11 @@ public class LevelMap {
         return x >= 0 && x < width && y >= 0 && y < height;
     }
 
+    /**
+     * Remove an entity from the map.
+     *
+     * @param entity The entity to remove.
+     */
     public void removeEntity(Entity entity) {
         Point position = entityPositions.get(entity);
         if (position != null) {
@@ -61,6 +69,14 @@ public class LevelMap {
         }
     }
 
+    /**
+     * Add and set the position of an entity on the map.
+     * If the entity already exists, it will be moved to the new position.
+     *
+     * @param entity The entity to place or move.
+     * @param newX   The new x-coordinate.
+     * @param newY   The new y-coordinate.
+     */
     public void setEntityPosition(Entity entity, int newX, int newY) {
         Point oldPosition = entityPositions.get(entity);
         if (oldPosition != null) {
@@ -78,6 +94,13 @@ public class LevelMap {
         entityPositions.put(entity, newPosition);
     }
 
+    /**
+     * Get the position of an entity on the map.
+     *
+     * @param entity The entity whose position is to be retrieved.
+     * @return A Point representing the entity's position.
+     * @throws IllegalStateException if the entity is not found on the map.
+     */
     public Point getEntityPosition(Entity entity) {
         Point position = entityPositions.get(entity);
         if (position == null) {
@@ -86,18 +109,40 @@ public class LevelMap {
         return new Point(position);
     }
 
+    /** Get the X coordinate of an entity on the map.
+     *
+     * @param entity The entity whose X coordinate is to be retrieved.
+     * @return The X coordinate of the entity.
+     * @throws IllegalStateException if the entity is not found on the map.
+     */
     public int getEntityX(Entity entity) {
         return getEntityPosition(entity).x;
     }
 
+    /** Get the Y coordinate of an entity on the map.
+     *
+     * @param entity The entity whose Y coordinate is to be retrieved.
+     * @return The Y coordinate of the entity.
+     * @throws IllegalStateException if the entity is not found on the map.
+     */
     public int getEntityY(Entity entity) {
         return getEntityPosition(entity).y;
     }
 
+    /** Get all entities at a specific position on the map.
+     *
+     * @param x The x-coordinate.
+     * @param y The y-coordinate.
+     * @return A list of entities at the specified position.
+     */
     public List<Entity> getEntitiesAt(int x, int y) {
         return grid.getOrDefault(new Point(x, y), List.of());
     }
 
+    /** Get all entites on the map.
+     *
+     * @return A list of all entities on the map.
+     */
     public List<Entity> getEntities() {
         return new ArrayList<>(entityPositions.keySet());
     }

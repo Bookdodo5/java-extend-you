@@ -3,6 +3,9 @@ package model.action;
 import model.entity.Direction;
 import model.entity.Entity;
 
+/**
+ * An action that rotates an entity to a new direction.
+ */
 public class RotateAction implements Action{
 
     private final Direction startDirection;

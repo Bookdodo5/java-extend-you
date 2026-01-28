@@ -3,6 +3,9 @@ package model.action;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A composite action that aggregates multiple actions into one.
+ */
 public class CompositeAction implements Action {
 
     private final List<Action> actions;

@@ -6,6 +6,22 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Central registry for all entity-related types used by the application.
+ *
+ * <p>This class declares and registers a fixed set of types using static initializers.
+ * Each registered type receives a unique z-index and a default sprite path
+ * derived from its type id in the format: {@code "sprites/{typeId}.png"}.
+ *
+ * <p>The z-index can be changed by changing the order of registration.
+ *
+ * <p>If you want to use the types, you can reference them directly like this:
+ *
+ * <pre>
+ * EntityType constant = TypeRegistry.JAVA;
+ * </pre>
+ */
 public class TypeRegistry {
     private static final Map<String, EntityType> REGISTRY = new HashMap<>();
     private static int ZIndexCounter = 0;

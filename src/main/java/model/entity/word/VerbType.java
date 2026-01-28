@@ -1,5 +1,9 @@
 package model.entity.word;
 
+/**
+ * Represents a verb word type in the game.
+ * Verbs can accept nouns or properties as an effect, and only nouns as a subject. (IS, HAS, EXTEND)
+ */
 public class VerbType extends WordType{
 
     private final boolean acceptsNoun;

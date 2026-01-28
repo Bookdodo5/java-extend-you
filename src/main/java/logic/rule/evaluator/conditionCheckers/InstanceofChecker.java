@@ -7,6 +7,7 @@ import model.map.LevelMap;
 import model.rule.Condition;
 import model.rule.Ruleset;
 
+/** Checks for "A INSTANCEOF B IS X" conditions. */
 public class InstanceofChecker implements ConditionChecker {
 
     @Override

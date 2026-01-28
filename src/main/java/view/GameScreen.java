@@ -21,10 +21,10 @@ public class GameScreen extends Canvas {
 
     public GameScreen(double width, double height) {
         super(width, height);
-        this.setVisible(true);
-        this.setFocusTraversable(true);
-        this.setOnKeyPressed(event -> InputUtility.setKeyPressed(event.getCode(), true));
-        this.setOnKeyReleased(event -> InputUtility.setKeyPressed(event.getCode(), false));
+        setVisible(true);
+        setFocusTraversable(true);
+        setOnKeyPressed(event -> InputUtility.setKeyPressed(event.getCode(), true));
+        setOnKeyReleased(event -> InputUtility.setKeyPressed(event.getCode(), false));
     }
 
     public void render() {

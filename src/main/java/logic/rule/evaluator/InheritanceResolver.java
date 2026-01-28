@@ -11,6 +11,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Finds out if an entity is an instance of a specific type, considering inheritance rules "X EXTENDS Y".
+ */
 public class InheritanceResolver {
     private final ConditionEvaluator conditionEvaluator;
 

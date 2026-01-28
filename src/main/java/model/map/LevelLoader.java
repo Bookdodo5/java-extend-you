@@ -8,24 +8,33 @@ import java.io.InputStream;
 import java.util.Scanner;
 
 /**
- * <h1><b>Utility class for loading maps from CSV.</b></h1>
- * <b>, : tile separator</b><br/>
- * <b>+ : entity stacking</b><br/>
- * <b>. : empty tile</b><br/><br/>
+ * Utility class for loading maps from CSV files.
  *
- * Example (level1.csv):<br/>
- * ---------------------------------<br/>
- * 5,3<br/>
- * wall+rock,wall,text_java,text_is,text_you<br/>
- * java,.,text_flag,text_is,text_win<br/>
- * .,.,flag,.,rock<br/>
- * ---------------------------------<br/>
+ * The CSV file format is as follows:
+ * <ul>
+ * <li>First line: width,height</li>
+ * <li>Each following line: comma-separated cells (one row per line)</li>
+ * <li>Use '+' to stack multiple entities in a single tile (e.g. "java+flag")</li>
+ * <li>Use '.' to represent an empty tile</li>
+ * </ul>
+ *
+ * <p>Example (level1.csv):</p>
+ * 5,3
+ * wire+water,water,text_java,is,you
+ * java,.,text_flag,is,win
+ * .,.,flag,.,lava
  */
 
 public class LevelLoader {
 
     private LevelLoader() {}
 
+    /**
+     * Loads a level map from a CSV file.
+     *
+     * @param fileName the name of the CSV file to load
+     * @return the loaded LevelMap, or null if loading failed
+     */
     public static LevelMap loadLevel(String fileName) {
 
         InputStream inputStream = LevelLoader.class.getClassLoader().getResourceAsStream(fileName);

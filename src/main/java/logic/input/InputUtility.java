@@ -5,6 +5,9 @@ import javafx.scene.input.KeyCode;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * Utility class for handling keyboard input.
+ */
 public class InputUtility {
     private static final Set<KeyCode> keyPressed = new HashSet<>();
 

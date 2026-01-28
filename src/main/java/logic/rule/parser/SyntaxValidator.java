@@ -13,6 +13,9 @@ import model.rule.Rule;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Validates the syntax of rule candidates using a finite state machine.
+ */
 public class SyntaxValidator {
 
     private enum State {

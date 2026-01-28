@@ -9,6 +9,16 @@ import model.rule.Ruleset;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Parses all rules from a level map using the pipeline of:
+ * <ol>
+ * <li>Text Scanning</li>
+ * <li>Permutation Generation</li>
+ * <li>Syntax Validation</li>
+ * <li>Semantic Validation</li>
+ * <li>Rule Deduplication</li>
+ * </ol>
+ */
 public class RuleParser {
     private final TextScanner textScanner;
     private final PermutationGenerator permutationGenerator;

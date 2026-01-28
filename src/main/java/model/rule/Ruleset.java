@@ -3,6 +3,9 @@ package model.rule;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a collection of rules.
+ */
 public class Ruleset {
     private final ArrayList<Rule> rules;
 

@@ -16,6 +16,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Handles interactions between entities on the level map after movement based on the current rule.
+ */
 public class InteractionHandler {
 
     public CompositeAction handleInteractions(LevelMap levelMap, Ruleset ruleset, RuleEvaluator ruleEvaluator) {

@@ -4,6 +4,9 @@ import model.entity.Direction;
 import model.entity.Entity;
 import model.map.LevelMap;
 
+/**
+ * An action that moves an entity in a specified direction on the level map.
+ */
 public class MoveAction implements Action {
 
     private final LevelMap levelMap;

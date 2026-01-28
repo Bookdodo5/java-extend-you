@@ -1,5 +1,8 @@
 package model.entity;
 
+/**
+ * Represents a type of entity (ex. TEXT_JAVA, JAVA object, TEXT_IS) in the game with its associated properties.
+ */
 public class EntityType {
 
     private final String typeId;

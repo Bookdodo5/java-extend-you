@@ -9,6 +9,7 @@ import model.rule.Ruleset;
 
 import java.util.List;
 
+/** Checks for "A FACING B IS X" conditions. */
 public class FacingChecker implements ConditionChecker {
     @Override
     public boolean isSatisfied(Entity entity, Condition condition, LevelMap levelMap, Ruleset ruleset) {

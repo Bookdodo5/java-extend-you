@@ -5,6 +5,9 @@ import model.entity.Entity;
 import model.entity.EntityType;
 import model.map.LevelMap;
 
+/**
+ * An action that destroys an entity from the level map.
+ */
 public class DestroyAction implements Action {
 
     private final LevelMap levelMap;

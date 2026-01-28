@@ -11,6 +11,9 @@ import model.rule.Ruleset;
 import java.util.List;
 import model.rule.Transformation;
 
+/**
+ * A class responsible for handling different types of query related to rules and properties of entities.
+ */
 public class RuleEvaluator {
     private final ConditionEvaluator conditionEvaluator;
     private final InheritanceResolver inheritanceResolver;

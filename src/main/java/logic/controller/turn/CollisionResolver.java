@@ -12,6 +12,9 @@ import model.rule.Ruleset;
 
 import java.util.*;
 
+/**
+ * Resolves collisions (PUSH, STOP) for a list of MoveIntents to produce a final CompositeAction.
+ */
 public class CollisionResolver {
 
     public CompositeAction resolveCollisions(List<MoveIntent> intents, LevelMap levelMap, Ruleset ruleset, RuleEvaluator ruleEvaluator) {
@@ -28,6 +31,7 @@ public class CollisionResolver {
         return action;
     }
 
+    /** Get MoveIntents in a specific direction, sorted by their position to ensure correct processing order. */
     private List<MoveIntent> getIntentsInDirection(List<MoveIntent> intents, Direction direction, LevelMap levelMap) {
         return intents.stream()
                 .filter(intent -> intent.getDirection() == direction)
@@ -43,6 +47,7 @@ public class CollisionResolver {
                 .toList();
     }
 
+    /** Process a single MoveIntent */
     private void processIntent(MoveIntent intent, CompositeAction action, LevelMap levelMap, RuleEvaluator ruleEvaluator, Ruleset ruleset) {
         Entity entity = intent.getEntity();
         Direction direction = intent.getDirection();
@@ -61,6 +66,7 @@ public class CollisionResolver {
         }
     }
 
+    /** Handle the STOP property by rotating and bouncing back if the intent comes from "X IS MOVE" rule */
     private void handleStop(MoveIntent intent, CompositeAction action, LevelMap levelMap, RuleEvaluator ruleEvaluator, Ruleset ruleset) {
         if (intent.isFromMove()) {
             Entity entity = intent.getEntity();
@@ -74,6 +80,7 @@ public class CollisionResolver {
         }
     }
 
+    /** Recursive method to attempt pushing entities in the direction of the intent */
     private boolean tryPush(MoveIntent intent, CompositeAction action, LevelMap levelMap, RuleEvaluator ruleEvaluator, Ruleset ruleset) {
         Entity entity = intent.getEntity();
         Direction direction = intent.getDirection();

@@ -5,6 +5,10 @@ import model.entity.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Generates all possible permutations of the rules, in case of overlapping text.
+ */
 public class PermutationGenerator {
 
     public List<List<Entity>> generate(List<List<List<Entity>>> textTiles) {

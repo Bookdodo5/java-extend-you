@@ -3,6 +3,9 @@ package model.rule;
 import model.entity.Entity;
 import model.entity.EntityType;
 
+/**
+ * Represents a transformation rule that converts an entity of one type to another type.
+ */
 public class Transformation {
     private final Entity source;
     private final EntityType targetType;

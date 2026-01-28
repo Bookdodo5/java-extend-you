@@ -2,6 +2,9 @@ package model.action;
 
 import java.util.Stack;
 
+/**
+ * Manages a stack of actions to enable undo and redo functionality.
+ */
 public class ActionStack {
 
     Stack<CompositeAction> undoStack;

@@ -15,6 +15,9 @@ import java.util.List;
 
 import static application.Constant.INPUT_COOLDOWN_MILLIS;
 
+/**
+ * Manages the game level, processing player inputs, and updating the map state after the inputs.
+ */
 public class LevelController {
     private LevelMap levelMap;
     private LevelMap levelMapPrototype;

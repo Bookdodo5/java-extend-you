@@ -10,6 +10,11 @@ import model.rule.Ruleset;
 
 import java.util.List;
 
+/**
+ * Orchestrates the sequence of actions that occur during a game turn.
+ *
+ * <p>The method {@link #runTurn(Direction, LevelMap, Ruleset, RuleParser)} executes the turn after getting an input direction.</p>
+ */
 public class TurnOrchestrator {
 
     private final RuleEvaluator ruleEvaluator;

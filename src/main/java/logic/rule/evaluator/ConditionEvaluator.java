@@ -16,6 +16,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Evaluates a list of conditions against a given entity within a level map and ruleset.
+ */
 public class ConditionEvaluator {
     private final Map<EntityType, ConditionChecker> conditionCheckers = new HashMap<>();
 

@@ -15,7 +15,11 @@ import view.GameScreen;
 import static application.Constant.TARGET_SCREEN_WIDTH;
 import static application.Constant.TARGET_SCREEN_HEIGHT;
 
+/**
+ * Main class to launch the JavaFX application and initialize the game.
+ */
 public class Main extends Application {
+
     public static void main(String[] args) {
         Application.launch(args);
     }
@@ -47,9 +51,16 @@ public class Main extends Application {
         AnimationTimer animation = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                screen.render();
-                if(gameController.getState() == GameState.PLAYING) {
-                    levelController.update();
+                try {
+                    screen.render();
+                    if(gameController.getState() == GameState.PLAYING) {
+                        levelController.update();
+                    }
+                } catch (IllegalStateException e) {
+                    System.err.println("CRITICAL ERROR: Game state corruption detected!");
+                    System.err.println("Error details: " + e.getMessage());
+
+                    gameController.returnToTitle();
                 }
             }
         };

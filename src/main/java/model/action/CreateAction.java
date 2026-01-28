@@ -5,6 +5,9 @@ import model.entity.Entity;
 import model.entity.EntityType;
 import model.map.LevelMap;
 
+/**
+ * Action to create a new entity at a specified position on the level map.
+ */
 public class CreateAction implements Action {
 
     private final LevelMap levelMap;

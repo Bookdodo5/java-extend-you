@@ -7,6 +7,9 @@ import model.map.LevelMap;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Scans a LevelMap for sequences of word entities arranged in lines (horizontally or vertically) which have a chance to be a rule.
+ */
 public class TextScanner {
 
     public List<List<List<Entity>>> scanText(LevelMap levelMap) {

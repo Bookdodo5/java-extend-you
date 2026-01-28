@@ -7,6 +7,9 @@ import model.rule.Rule;
 
 import java.util.List;
 
+/**
+ * Validates the semantic correctness of rules. Some rules are not possible even if the grammar is correct
+ */
 public class SemanticValidator {
 
     public List<Rule> validate(List<Rule> rules) {

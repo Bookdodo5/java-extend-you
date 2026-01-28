@@ -4,6 +4,15 @@ import model.map.LevelLoader;
 import model.map.LevelMap;
 import view.GameScreen;
 
+/**
+ * A singleton class that manages the overall state of the game.
+ * <ul>
+ *     <li>Game states and transitions</li>
+ *     <li>Communication between logic and graphic</li>
+ *     <li>Game progressions</li>
+ *     <li>etc. (there can be more)</li>
+ * </ul>
+ */
 public class GameController {
     private static GameController instance;
     private GameState currentState = GameState.TITLE;
