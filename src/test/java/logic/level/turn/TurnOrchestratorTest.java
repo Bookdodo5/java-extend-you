@@ -1,4 +1,4 @@
-package logic.controller.turn;
+package logic.level.turn;
 
 import logic.rule.parser.RuleParser;
 import model.action.CompositeAction;

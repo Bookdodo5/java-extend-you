@@ -5,12 +5,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import logic.controller.GameController;
-import logic.controller.GameState;
-import logic.controller.LevelController;
-import model.map.LevelLoader;
-import model.map.LevelMap;
-import view.GameScreen;
+import logic.input.InputUtility;
+import state.GameStateEnum;
 
 import static application.Constant.TARGET_SCREEN_WIDTH;
 import static application.Constant.TARGET_SCREEN_HEIGHT;
@@ -34,13 +30,9 @@ public class Main extends Application {
         stage.show();
 
         GameController gameController = GameController.getInstance();
-        LevelController levelController = new LevelController();
         GameScreen screen = new GameScreen(TARGET_SCREEN_WIDTH, TARGET_SCREEN_HEIGHT);
 
-        gameController.setLevelController(levelController);
-        gameController.setGameScreen(screen);
-        gameController.startGame();
-        gameController.playMap("mapTest.csv");
+        gameController.playLevel("mapTest.csv");
 
         root.widthProperty().addListener((obs, oldVal, newVal) -> screen.updateScale(root));
         root.heightProperty().addListener((obs, oldVal, newVal) -> screen.updateScale(root));
@@ -53,14 +45,13 @@ public class Main extends Application {
             public void handle(long now) {
                 try {
                     screen.render();
-                    if(gameController.getState() == GameState.PLAYING) {
-                        levelController.update();
-                    }
+                    gameController.update();
+                    InputUtility.clearTriggered();
                 } catch (IllegalStateException e) {
                     System.err.println("CRITICAL ERROR: Game state corruption detected!");
                     System.err.println("Error details: " + e.getMessage());
 
-                    gameController.returnToTitle();
+                    gameController.setState(GameStateEnum.TITLE);
                 }
             }
         };

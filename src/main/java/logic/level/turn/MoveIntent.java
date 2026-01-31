@@ -1,4 +1,4 @@
-package logic.controller.turn;
+package logic.level.turn;
 
 import model.entity.Direction;
 import model.entity.Entity;

@@ -1,7 +1,8 @@
-package logic.controller;
+package logic.level;
 
-import logic.controller.turn.TurnOrchestrator;
+import javafx.scene.input.KeyCode;
 import logic.input.InputCommand;
+import logic.level.turn.TurnOrchestrator;
 import logic.input.InputUtility;
 import logic.rule.parser.RuleParser;
 import model.action.ActionStack;
@@ -41,12 +42,16 @@ public class LevelController {
         parseRules();
     }
 
+    public LevelMap getLevelMap() {
+        return levelMap;
+    }
+
     public void update() {
         if(System.currentTimeMillis() - lastInputTime < INPUT_COOLDOWN_MILLIS) {
             return;
         }
 
-        InputCommand playerInput = InputUtility.getInputCommand();
+        InputCommand playerInput = InputUtility.getPressed();
         switch (playerInput) {
             case NONE -> {
                 return;
@@ -54,8 +59,7 @@ public class LevelController {
             case UNDO -> handleUndo();
             case REDO -> handleRedo();
             case RESET -> handleReset();
-            case MENU -> handlePause();
-            case WAIT -> processTurn(null);
+            case TRIGGER -> processTurn(null);
             case MOVE_UP -> processTurn(Direction.UP);
             case MOVE_DOWN -> processTurn(Direction.DOWN);
             case MOVE_LEFT -> processTurn(Direction.LEFT);
@@ -84,13 +88,7 @@ public class LevelController {
     private void handleReset() {
         System.out.println("Reset action triggered");
         levelMap = new LevelMap(levelMapPrototype);
-        GameController.getInstance().setCurrentMap(levelMap);
         actionStack.clear();
-    }
-
-    private void handlePause() {
-        System.out.println("Pause action triggered");
-        GameController.getInstance().pauseGame();
     }
 
     private void processTurn(Direction direction) {

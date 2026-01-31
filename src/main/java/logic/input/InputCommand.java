@@ -1,17 +1,14 @@
 package logic.input;
 
-/**
- * Enum representing possible input commands for the game.
- */
 public enum InputCommand {
+    NONE,
+    UNDO,
+    REDO,
     MOVE_UP,
     MOVE_DOWN,
     MOVE_LEFT,
     MOVE_RIGHT,
-    UNDO,
-    REDO,
+    TRIGGER,
     RESET,
-    MENU,
-    WAIT,
-    NONE
+    MENU
 }
