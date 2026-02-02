@@ -86,4 +86,16 @@ public class RuleEvaluator {
                 })
                 .toList();
     }
+
+    public boolean isWinConditionMet(LevelMap levelMap, Ruleset ruleset) {
+        return levelMap.getEntities().stream()
+                .filter(entity -> hasProperty(entity, TypeRegistry.WIN, levelMap, ruleset))
+                .anyMatch(entity -> hasEntityWithPropertyAt(
+                        TypeRegistry.YOU,
+                        levelMap,
+                        ruleset,
+                        levelMap.getEntityX(entity),
+                        levelMap.getEntityY(entity))
+                );
+    }
 }

@@ -14,6 +14,15 @@ public class Ruleset {
     }
 
     public void setRules(List<Rule> ruleList) {
+        if(ruleList.equals(rules)) {
+            return;
+        }
+        if(ruleList.size() >= rules.size()) {
+            // TODO (SOUND) : play rule formation sound
+        }
+        if(ruleList.size() <= rules.size()) {
+            // TODO (SOUND) : play rule breaking sound
+        }
         reset();
         rules.addAll(ruleList);
     }

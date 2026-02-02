@@ -6,7 +6,9 @@ import model.map.LevelMap;
 import state.*;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A singleton class that manages the overall state of the game.
@@ -20,10 +22,16 @@ import java.util.Map;
 public class GameController {
     private static GameController instance;
     private final Map<GameStateEnum, GameState> stateMap;
+    private final Set<String> completedLevels;
     private GameState currentState;
+    private boolean isCurrentLevelWin;
+    private String currentLevelFilePath;
+    private LevelMap currentLevelMap;
 
     private GameController() {
         stateMap = new HashMap<>();
+        completedLevels = new HashSet<>();
+        currentLevelFilePath = null;
         stateMap.put(GameStateEnum.PLAYING, new PlayingState());
         stateMap.put(GameStateEnum.MAP, new MapState());
         stateMap.put(GameStateEnum.TITLE, new TitleState());
@@ -45,10 +53,19 @@ public class GameController {
         if(currentState != null) {
             currentState.onEnter();
         }
+        if(newState != GameStateEnum.PAUSED && newState != GameStateEnum.PLAYING) {
+            resetCurrentLevel();
+        }
     }
 
     public GameState getGameState(GameStateEnum stateEnum) {
         return stateMap.get(stateEnum);
+    }
+
+    private void resetCurrentLevel() {
+        currentLevelFilePath = null;
+        isCurrentLevelWin = false;
+        currentLevelMap = null;
     }
 
     public void playLevel(String levelFilePath) {
@@ -60,12 +77,38 @@ public class GameController {
         }
         playingState.loadLevel(levelMap);
         setState(GameStateEnum.PLAYING);
+        currentLevelFilePath = levelFilePath;
+        currentLevelMap = levelMap;
+    }
+
+    public boolean isLevelCompleted(String levelFilePath) {
+        return completedLevels.contains(levelFilePath);
     }
 
     public void update() {
         if(currentState != null) {
             currentState.update();
         }
+    }
+
+    public void setCurrentLevelWin(boolean isWin) {
+        this.isCurrentLevelWin = isWin;
+    }
+
+    public boolean processWin() {
+        if(isCurrentLevelWin) {
+            completedLevels.add(currentLevelFilePath);
+            setState(GameStateEnum.MAP);
+            resetCurrentLevel();
+            //TODO (SOUND) : play win sound;
+
+            return true;
+        }
+        return false;
+    }
+
+    public LevelMap getCurrentLevelMap() {
+        return currentLevelMap;
     }
 
     public void render(GraphicsContext gc) {

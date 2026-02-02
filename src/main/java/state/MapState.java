@@ -1,6 +1,9 @@
 package state;
 
+import application.GameController;
 import javafx.scene.canvas.GraphicsContext;
+import logic.input.InputCommand;
+import logic.input.InputUtility;
 
 public class MapState implements GameState {
     /**
@@ -9,6 +12,8 @@ public class MapState implements GameState {
     @Override
     public void onEnter() {
         // Code here happens when entering the level selector (world map)
+        // TODO (SOUND) : play state transition sound
+        // TODO (SOUND) : play map music
     }
 
     /**
@@ -24,28 +29,45 @@ public class MapState implements GameState {
      */
     @Override
     public void update() {
-        // Code here is called every frame while in the level selector
+        InputCommand input = InputUtility.getTriggered();
+        switch (input) {
+            case MOVE_UP -> handleMoveUp();
+            case MOVE_DOWN -> handleMoveDown();
+            case MOVE_LEFT -> handleMoveLeft();
+            case MOVE_RIGHT -> handleMoveRight();
+            case TRIGGER -> handleTrigger();
+        }
+    }
 
-        /*
-            Handle input like this:
+    private void handleTrigger() {
+        // TODO (MAP) : handle level selection with GameController.getInstance().playLevel(....); RETURN IF NOT POSSIBLE.
+        GameController.getInstance().playLevel("mapTest.csv");
+        // TODO (SOUND) : play level music
+        // TODO (SOUND) : play level enter sfx
+    }
 
-            InputCommand input = InputUtility.getTriggered();
-            switch (input) {
-                case NONE -> {
-                    return;
-                }
-                case MOVE_UP -> {
-                    // Move the cursor up
-                }
-                case MOVE_DOWN -> {
-                    // Move the cursor down
-                }
-                case SELECT -> {
-                    // Select the current level at cursor
-                    // Call GameController.playLevel(levelPathString);
-                }
-            }
-         */
+    private void handleMoveRight() {
+        // TODO (MAP) : move cursor right if possible. RETURN IF NOT POSSIBLE.
+
+        // TODO (SOUND) : play cursor move sound
+    }
+
+    private void handleMoveLeft() {
+        // TODO (MAP) : move cursor left if possible. RETURN IF NOT POSSIBLE.
+
+        // TODO (SOUND) : play cursor move sound
+    }
+
+    private void handleMoveDown() {
+        // TODO (MAP) : move cursor down if possible. RETURN IF NOT POSSIBLE.
+
+        // TODO (SOUND) : play cursor move sound
+    }
+
+    private void handleMoveUp() {
+        // TODO (MAP) : move cursor up if possible. RETURN IF NOT POSSIBLE.
+
+        // TODO (SOUND) : play cursor move sound
     }
 
     /**

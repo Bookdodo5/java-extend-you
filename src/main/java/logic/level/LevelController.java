@@ -39,6 +39,7 @@ public class LevelController {
     public void setLevelMap(LevelMap levelMap) {
         this.levelMap = levelMap;
         this.levelMapPrototype = new LevelMap(levelMap);
+        actionStack.clear();
         parseRules();
     }
 
@@ -78,17 +79,23 @@ public class LevelController {
     private void handleUndo() {
         System.out.println("Undo action triggered");
         actionStack.undo();
+
+        // TODO (SOUND) : play undo sound
     }
 
     private void handleRedo() {
         System.out.println("Redo action triggered");
         actionStack.redo();
+
+        // TODO (SOUND) : play undo sound
     }
 
     private void handleReset() {
         System.out.println("Reset action triggered");
         levelMap = new LevelMap(levelMapPrototype);
         actionStack.clear();
+
+        // TODO (SOUND) : play reset sound
     }
 
     private void processTurn(Direction direction) {

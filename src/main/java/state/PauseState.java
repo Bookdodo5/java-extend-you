@@ -11,7 +11,7 @@ public class PauseState implements GameState {
      */
     @Override
     public void onEnter() {
-
+        // TODO (SOUND) : play menu enter sound
     }
 
     /**
@@ -28,9 +28,24 @@ public class PauseState implements GameState {
     @Override
     public void update() {
         InputCommand playerInput = InputUtility.getTriggered();
-        if (playerInput == InputCommand.MENU) {
-            GameController.getInstance().setState(GameStateEnum.PLAYING);
+        switch (playerInput) {
+            case MENU -> GameController.getInstance().setState(GameStateEnum.PLAYING);
+            case MOVE_UP -> handleMoveUp();
+            case MOVE_DOWN -> handleMoveDown();
+            case TRIGGER -> handleTrigger();
         }
+    }
+
+    private void handleMoveUp() {
+        // TODO (SOUND) : play menu move sound
+    }
+
+    private void handleMoveDown() {
+        // TODO (SOUND) : play menu move sound
+    }
+
+    private void handleTrigger() {
+        // TODO (SOUND) : play menu select sound
     }
 
     /**

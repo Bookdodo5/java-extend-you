@@ -1,8 +1,11 @@
 package logic.level.turn;
 
+import application.GameController;
 import logic.rule.evaluator.RuleEvaluator;
 import logic.rule.parser.RuleParser;
 import model.action.CompositeAction;
+import model.action.DestroyAction;
+import model.action.MoveAction;
 import model.entity.Direction;
 import model.entity.TypeRegistry;
 import model.map.LevelMap;
@@ -46,9 +49,35 @@ public class TurnOrchestrator {
         interactAction.execute();
         ruleset.setRules(ruleParser.parseRules(levelMap));
 
+        // Check win
+        if(ruleEvaluator.isWinConditionMet(levelMap, ruleset)) {
+            GameController.getInstance().setCurrentLevelWin(true);
+        }
+
         // Combine all actions
         youAction.combine(moveAction);
         youAction.combine(interactAction);
+
+        // Play appropriate sounds
+        if(youAction.getActions().stream()
+                .anyMatch(action -> action instanceof MoveAction)) {
+            // TODO (SOUND) : play move sound
+        }
+        if(youAction.getActions().stream()
+                .anyMatch(action -> action instanceof DestroyAction)
+        ) {
+            // TODO (SOUND) : play destroy sound
+        }
+        if(levelMap.getEntities().stream()
+                .noneMatch(entity -> ruleEvaluator.hasProperty(entity, TypeRegistry.YOU, levelMap, ruleset))
+        ) {
+            // TODO (SOUND) : IF LEVEL MUSIC IS PLAYING, play lose music
+        }
+        else {
+            // TODO (SOUND) : IF LOSE MUSIC IS PLAYING, play level music
+        }
+
+
         return youAction;
     }
 

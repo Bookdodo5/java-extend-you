@@ -45,6 +45,11 @@ public class PlayingState implements GameState {
      */
     @Override
     public void update() {
+        boolean success = GameController.getInstance().processWin();
+        if(success) {
+            return;
+        }
+
         levelController.update();
 
         InputCommand playerInput = InputUtility.getTriggered();
