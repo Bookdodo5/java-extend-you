@@ -78,7 +78,7 @@ public class PlayingState implements GameState {
             Image image = new Image(entityType.getSpritePath());
             int xCoordinate = levelMap.getEntityX(entity);
             int yCoordinate = levelMap.getEntityY(entity);
-            System.out.println(xCoordinate + " " + yCoordinate);
+
             gc.drawImage(image,0,0,32,32,SPRITE_SIZE*xCoordinate,SPRITE_SIZE*yCoordinate,SPRITE_SIZE,SPRITE_SIZE);
         }
 
