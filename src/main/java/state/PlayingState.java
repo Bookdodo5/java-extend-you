@@ -2,10 +2,12 @@ package state;
 
 import javafx.scene.canvas.GraphicsContext;
 import application.GameController;
+import javafx.scene.image.Image;
 import logic.input.InputCommand;
 import logic.level.LevelController;
 import logic.input.InputUtility;
 import model.entity.Entity;
+import model.entity.EntityType;
 import model.map.LevelMap;
 
 import java.util.Arrays;
@@ -63,9 +65,23 @@ public class PlayingState implements GameState {
      */
     @Override
     public void render(GraphicsContext gc) {
+        LevelMap levelMap = levelController.getLevelMap();
+
         gc.setFill(javafx.scene.paint.Color.rgb(0, 0, 100, 0.5));
         gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-        displayLevelMapInConsole(levelController.getLevelMap());
+        displayLevelMapInConsole(levelMap);
+
+        for (Entity entity : levelMap.getEntities()) {
+            final int SPRITE_SIZE = 32;
+
+            EntityType entityType = entity.getType();
+            Image image = new Image(entityType.getSpritePath());
+            int xCoordinate = levelMap.getEntityX(entity);
+            int yCoordinate = levelMap.getEntityY(entity);
+            System.out.println(xCoordinate + " " + yCoordinate);
+            gc.drawImage(image,0,0,32,32,SPRITE_SIZE*xCoordinate,SPRITE_SIZE*yCoordinate,SPRITE_SIZE,SPRITE_SIZE);
+        }
+
     }
 
 
