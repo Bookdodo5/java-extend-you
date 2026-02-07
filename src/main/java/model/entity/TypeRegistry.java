@@ -28,48 +28,38 @@ public class TypeRegistry {
 
     private TypeRegistry() {}
 
-    private static String getSpritePath(String typeId) {
-        return "sprite/" + typeId.toUpperCase() + ".png";
-    }
-
     private static EntityType registerEntity(String typeId, AnimationStyle animationStyle) {
-        String spritePath = getSpritePath(typeId);
-        EntityType newType = new EntityType(ZIndexCounter++, typeId, spritePath, animationStyle);
+        EntityType newType = new EntityType(ZIndexCounter++, typeId, animationStyle);
         REGISTRY.put(typeId, newType);
         return newType;
     }
 
     private static NounType registerNoun(String typeId, EntityType referencedType) {
-        String spritePath = getSpritePath(typeId);
-        NounType newType = new NounType(ZIndexCounter++, typeId, spritePath, referencedType);
+        NounType newType = new NounType(ZIndexCounter++, typeId, referencedType);
         REGISTRY.put(typeId, newType);
         return newType;
     }
 
     private static VerbType registerVerb(String typeId, boolean acceptsNoun, boolean acceptsProperty) {
-        String spritePath = getSpritePath(typeId);
-        VerbType newType = new VerbType(ZIndexCounter++, typeId, spritePath, acceptsNoun, acceptsProperty);
+        VerbType newType = new VerbType(ZIndexCounter++, typeId, acceptsNoun, acceptsProperty);
         REGISTRY.put(typeId, newType);
         return newType;
     }
 
     private static ConditionType registerCondition(String typeId) {
-        String spritePath = getSpritePath(typeId);
-        ConditionType newType = new ConditionType(ZIndexCounter++, typeId, spritePath);
+        ConditionType newType = new ConditionType(ZIndexCounter++, typeId);
         REGISTRY.put(typeId, newType);
         return newType;
     }
 
     private static PropertyType registerProperty(String typeId) {
-        String spritePath = getSpritePath(typeId);
-        PropertyType newType = new PropertyType(ZIndexCounter++, typeId, spritePath);
+        PropertyType newType = new PropertyType(ZIndexCounter++, typeId);
         REGISTRY.put(typeId, newType);
         return newType;
     }
 
     private static ConjunctionType registerConjunction(String typeId) {
-        String spritePath = getSpritePath(typeId);
-        ConjunctionType newType = new ConjunctionType(ZIndexCounter++, typeId, spritePath);
+        ConjunctionType newType = new ConjunctionType(ZIndexCounter++, typeId);
         REGISTRY.put(typeId, newType);
         return newType;
     }
@@ -82,9 +72,9 @@ public class TypeRegistry {
     public static final EntityType WATER = registerEntity("water", AnimationStyle.TILED);
     public static final EntityType TILE = registerEntity("tile", AnimationStyle.WOBBLE);
     public static final EntityType PAPER = registerEntity("paper", AnimationStyle.WOBBLE);
-    public static final EntityType WARNING = registerEntity("warning", AnimationStyle.WOBBLE);
     public static final EntityType ERROR = registerEntity("error", AnimationStyle.WOBBLE);
     public static final EntityType CHECK = registerEntity("check", AnimationStyle.WOBBLE);
+    public static final EntityType WARNING = registerEntity("warning", AnimationStyle.WOBBLE);
     public static final EntityType WIRE = registerEntity("wire", AnimationStyle.TILED);
     public static final EntityType GIT = registerEntity("git", AnimationStyle.WOBBLE);
     public static final EntityType DATABASE = registerEntity("database", AnimationStyle.WOBBLE);
@@ -102,7 +92,7 @@ public class TypeRegistry {
     public static final NounType TEXT_LAVA = registerNoun("text_lava", LAVA);
     public static final NounType TEXT_WATER = registerNoun("text_water", WATER);
     public static final NounType TEXT_FLAG = registerNoun("text_flag", FLAG);
-    public static final NounType TEXT_PAPER = registerNoun("text_rock", PAPER);
+    public static final NounType TEXT_PAPER = registerNoun("text_paper", PAPER);
     public static final NounType TEXT_TILE = registerNoun("text_tile", TILE);
     public static final NounType TEXT_WARNING = registerNoun("text_warning", WARNING);
     public static final NounType TEXT_ERROR = registerNoun("text_error", ERROR);

@@ -2,38 +2,52 @@ package state;
 
 import javafx.scene.canvas.GraphicsContext;
 import application.GameController;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import logic.input.InputCommand;
 import logic.level.LevelController;
 import logic.input.InputUtility;
 import model.entity.Entity;
 import model.entity.EntityType;
+import model.entity.word.WordType;
 import model.map.LevelMap;
+import model.particle.Particle;
+import model.rule.Rule;
+import model.rule.Ruleset;
+import utils.ImageUtils;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import static application.Constant.*;
 
 public class PlayingState implements GameState {
 
     private final LevelController levelController;
+    private final List<Particle> particles;
 
     public void loadLevel(LevelMap levelMap) {
         levelController.setLevelMap(levelMap);
     }
 
+    public void addParticle(Particle particle) {
+        particles.add(particle);
+    }
+
     public PlayingState() {
         levelController = new LevelController();
+        particles = new ArrayList<>();
     }
 
     /**
      *
      */
     @Override
-    public void onEnter() {
+    public void onEnter(GameStateEnum previousState) {
 
     }
 
@@ -55,7 +69,9 @@ public class PlayingState implements GameState {
             return;
         }
 
-        levelController.update();
+        levelController.update(this);
+        particles.removeIf(Particle::isDead);
+        particles.forEach(Particle::update);
 
         InputCommand playerInput = InputUtility.getTriggered();
         if (playerInput == InputCommand.MENU) {
@@ -64,83 +80,82 @@ public class PlayingState implements GameState {
     }
 
     /**
+     * Renders the game state including background, entities, and particles.
      *
+     * @param gc the graphics context to render on
      */
     @Override
     public void render(GraphicsContext gc) {
 
-        long currentTime = System.currentTimeMillis();
-        LevelMap levelMap = levelController.getLevelMap();
-
-        gc.setFill(javafx.scene.paint.Color.rgb(0, 0, 100, 0.5));
+        gc.setFill(Color.rgb(20, 25, 30));
         gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-        displayLevelMapInConsole(levelMap);
+
+        renderEntities(gc);
+        renderParticles(gc);
+    }
+
+    private void renderEntities(GraphicsContext gc) {
+
+        long currentTime = System.currentTimeMillis();
+        long totalCycleMs = MILLISECONDS_PER_FRAME * WOBBLE_FRAME_COUNT;
+        int frameInCycle = (int) (currentTime % totalCycleMs);
+        int animationFrameNumber = frameInCycle / MILLISECONDS_PER_FRAME;
+
+        LevelMap levelMap = levelController.getLevelMap();
+        Set<Entity> activeEntities = levelController.getRuleset().getActiveEntities();
 
         List<Entity> entities = levelMap.getEntities().stream()
                 .sorted(Comparator.comparingInt(e -> e.getType().getZIndex()))
                 .toList();
 
-        for (Entity entity : entities) {
+        for(Entity entity : entities) {
             EntityType entityType = entity.getType();
-            Image image = new Image(entityType.getSpritePath());
+            Image image = entityType.getSpriteSheet();
             int xCoordinate = levelMap.getEntityX(entity);
             int yCoordinate = levelMap.getEntityY(entity);
 
+            boolean isText = entityType.isText();
+            boolean isActiveText = activeEntities.contains(entity);
+            if(isText && !isActiveText) {
+                ColorAdjust inactiveText = new ColorAdjust();
+                inactiveText.setSaturation(-0.5);
+                inactiveText.setBrightness(-0.33);
+                gc.setEffect(inactiveText);
+            }
+
             switch (entityType.getAnimationStyle()) {
-                case WOBBLE -> {
-                    long totalCycleMs = MILLISECONDS_PER_FRAME * WOBBLE_FRAME_COUNT;
-                    int frameInCycle = (int) (currentTime % totalCycleMs);
-                    int animationFrameNumber = frameInCycle / MILLISECONDS_PER_FRAME;
-                    gc.drawImage(
-                            image,
-                            SPRITE_SIZE * animationFrameNumber, 0,
-                            SPRITE_SIZE, SPRITE_SIZE,
-                            SPRITE_SIZE * xCoordinate,
-                            SPRITE_SIZE * yCoordinate,
-                            SPRITE_SIZE, SPRITE_SIZE
-                    );
-                }
-                case null, default -> {
-                    gc.drawImage(
-                            image,
-                            0, 0,
-                            SPRITE_SIZE, SPRITE_SIZE,
-                            SPRITE_SIZE * xCoordinate,
-                            SPRITE_SIZE * yCoordinate,
-                            SPRITE_SIZE, SPRITE_SIZE
-                    );
-                }
+                case WOBBLE -> gc.drawImage(
+                        image,
+                        SPRITE_SIZE * animationFrameNumber, 0,
+                        SPRITE_SIZE, SPRITE_SIZE,
+                        SPRITE_SIZE * xCoordinate,
+                        SPRITE_SIZE * yCoordinate,
+                        SPRITE_SIZE, SPRITE_SIZE
+                );
+                case null, default -> gc.drawImage(
+                        image,
+                        SPRITE_SIZE * animationFrameNumber, 0,
+                        SPRITE_SIZE, SPRITE_SIZE,
+                        SPRITE_SIZE * xCoordinate,
+                        SPRITE_SIZE * yCoordinate,
+                        SPRITE_SIZE, SPRITE_SIZE
+                );
             }
-
-
+            gc.setEffect(null);
         }
-
     }
 
-
-    private void displayLevelMapInConsole(LevelMap levelMap) {
-        StringBuilder frame = new StringBuilder("\033[H");
-        for (int y = 0; y < levelMap.getHeight(); y++) {
-            for (int x = 0; x < levelMap.getWidth(); x++) {
-                String cellContent = formatCell(levelMap.getEntitiesAt(x, y));
-                frame.append(String.format("%-3s", cellContent));
-            }
-            frame.append("\n");
+    private void renderParticles(GraphicsContext gc) {
+        for (Particle particle : particles) {
+            Image particleImage = particle.getImage();
+            gc.drawImage(
+                    particleImage,
+                    SPRITE_SIZE * particle.getCurrentFrame(), 0,
+                    SPRITE_SIZE, SPRITE_SIZE,
+                    SPRITE_SIZE * particle.getX(),
+                    SPRITE_SIZE * particle.getY(),
+                    SPRITE_SIZE, SPRITE_SIZE
+            );
         }
-        System.out.printf(frame.toString());
-    }
-
-    private String formatCell(List<Entity> entities) {
-        if (entities.isEmpty()) {
-            return ".";
-        }
-
-        if (entities.size() == 1) {
-            return Arrays.stream(entities.getFirst().getType().getTypeId().split("_")).toList().getLast().toUpperCase().charAt(0) + "";
-        }
-
-        return entities.stream()
-                .map(entity -> Arrays.stream(entity.getType().getTypeId().split("_")).toList().getLast().toUpperCase().charAt(0) + "")
-                .collect(Collectors.joining(""));
     }
 }

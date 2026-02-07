@@ -9,8 +9,8 @@ import model.entity.EntityType;
 public abstract class WordType extends EntityType {
     private final PartOfSpeech partOfSpeech;
 
-    public WordType(int zIndex, String typeId, String spritePath, PartOfSpeech partOfSpeech) {
-        super(zIndex, typeId, spritePath, AnimationStyle.WOBBLE);
+    public WordType(int zIndex, String typeId, PartOfSpeech partOfSpeech) {
+        super(zIndex, typeId, AnimationStyle.WOBBLE);
         this.partOfSpeech = partOfSpeech;
     }
 

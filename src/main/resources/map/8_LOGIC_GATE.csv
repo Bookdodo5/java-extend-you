@@ -1,0 +1,14 @@
+13,13
+error       , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , error       
+error       , error       , error       , .           , .           , chip        , .           , win         , .           , .           , error       , error       , error
+error       , error       , error       , error       , error       , error       , error       , error       , error       , error       , error       , error       , error
+tile        , tile        , tile        , error       , error       , error       , error       , error       , error       , error       , tile        , tile        , tile
+tile        , text_check  , tile        , .           , .           , .           , .           , .           , .           , .           , tile        , text_chip   , tile
+tile        , tile        , tile        , .           , .           , .           , extend      , .           , .           , .           , tile        , tile        , tile
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .
+.           , .           , .           , .           , wire        , wire        , wire        , wire        , .           , wire        , .           , .           , .
+.           , wire        , .           , .           , text_xorgate, is          , you         , and         , sink        , wire        , .           , .           , .
+.           , xorgate     , .           , wire        , wire        , wire        , wire        , wire        , .           , wire        , .           , check       , .
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .
+wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire
+text_error  , is          , defeat      , wire        , wire        , text_check  , is          , push        , wire        , wire        , text_wire   , is          , stop

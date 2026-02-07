@@ -1,0 +1,56 @@
+package model.particle;
+
+import application.Constant;
+import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
+import utils.ImageUtils;
+
+public class Particle {
+    private double x;
+    private double y;
+    private final double originalX;
+    private final double originalY;
+    private final double vx;
+    private final double vy;
+    private final ParticleType type;
+    private final long createdTime;
+    private final Color color;
+
+    public Particle(double x, double y, double vx, double vy, ParticleType type, Color color) {
+        this.originalX = x;
+        this.originalY = y;
+        this.vx = vx;
+        this.vy = vy;
+        this.type = type;
+        this.color = color;
+        this.createdTime = System.currentTimeMillis();
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void update() {
+        long age = System.currentTimeMillis() - createdTime;
+        x = originalX + vx * age;
+        y = originalY + vy * age;
+    }
+
+    public Image getImage() {
+        return ImageUtils.applyColor(type.getSpriteSheet(), color);
+    }
+
+    public boolean isDead() {
+        long age = System.currentTimeMillis() - createdTime;
+        return age >= (long) type.getFrameCount() * type.getFrameDuration();
+    }
+
+    public int getCurrentFrame() {
+        long age = System.currentTimeMillis() - createdTime;
+        return (int) (age / type.getFrameDuration());
+    }
+}

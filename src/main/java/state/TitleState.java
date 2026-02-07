@@ -10,7 +10,7 @@ public class TitleState implements GameState {
      *
      */
     @Override
-    public void onEnter() {
+    public void onEnter(GameStateEnum previousState) {
         // TODO (SOUND) : play state transition sound
         // TODO (SOUND) : play title music
     }

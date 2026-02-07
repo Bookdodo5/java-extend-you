@@ -1,7 +1,11 @@
 package model.rule;
 
+import model.entity.Entity;
+
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Represents a collection of rules.
@@ -33,5 +37,19 @@ public class Ruleset {
 
     public ArrayList<Rule> getRules() {
         return rules;
+    }
+
+    public Set<Entity> getActiveEntities() {
+        Set<Entity> activeEntities = new HashSet<>();
+        for (Rule rule : rules) {
+            activeEntities.add(rule.getEffectText());
+            activeEntities.add(rule.getSubjectText());
+            activeEntities.add(rule.getVerbText());
+            for(Condition condition : rule.getConditions()) {
+                activeEntities.add(condition.getConditionText());
+                activeEntities.add(condition.getParameterText());
+            }
+        }
+        return activeEntities;
     }
 }

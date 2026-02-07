@@ -1,0 +1,14 @@
+15,13
+text_git    , is          , push        , .           , .           , .           , .           , .           , .           , .           , .           , .           , text_flag   , is          , win         
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           
+.           , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , .           
+.           , wire        , .           , .           , .           , wire        , .           , .           , .           , water       , .           , .           , .           , wire        , .           
+.           , wire        , .           , java        , .           , wire        , .           , text_git    , .           , water       , .           , text_flag   , .           , wire        , .
+.           , wire        , .           , .           , .           , wire        , .           , .           , .           , water       , .           , .           , .           , wire        , .
+.           , wire        , git         , git         , git         , wire        , water       , water       , water       , wire        , water       , water       , water       , wire        , .
+.           , wire        , .           , .           , .           , water       , .           , .           , .           , wire        , water       , water       , water       , wire        , .
+.           , wire        , .           , java        , .           , water       , .           , is          , .           , wire        , water       , water       , water       , wire        , .
+.           , wire        , .           , .           , .           , water       , text_java   , is          , you         , wire        , water       , flag        , water       , wire        , .
+.           , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , .           
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           
+text_water  , is          , sink        , .           , .           , .           , .           , .           , .           , .           , .           , .           , text_wire   , is          , stop        

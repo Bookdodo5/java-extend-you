@@ -24,8 +24,8 @@ public class TurnOrchestrator {
     private final CollisionResolver collisionResolver;
     private final InteractionHandler interactionHandler;
 
-    public TurnOrchestrator() {
-        this.ruleEvaluator = new RuleEvaluator();
+    public TurnOrchestrator(RuleEvaluator ruleEvaluator) {
+        this.ruleEvaluator = ruleEvaluator;
         this.collisionResolver = new CollisionResolver();
         this.interactionHandler = new InteractionHandler();
     }
@@ -76,7 +76,6 @@ public class TurnOrchestrator {
         else {
             // TODO (SOUND) : IF LOSE MUSIC IS PLAYING, play level music
         }
-
 
         return youAction;
     }

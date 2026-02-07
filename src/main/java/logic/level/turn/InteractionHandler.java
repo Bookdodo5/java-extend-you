@@ -47,11 +47,15 @@ public class InteractionHandler {
 
     private void processMore(LevelMap levelMap, Ruleset ruleset, RuleEvaluator ruleEvaluator, CompositeAction action) {
         List<Entity> entities = ruleEvaluator.getEntitiesWithProperty(TypeRegistry.MORE, levelMap, ruleset);
+        Set<Point> occupiedPositions = new HashSet<>();
         for (Entity entity : entities) {
             Point position = levelMap.getEntityPosition(entity);
             for(Direction direction : Direction.values()) {
                 int adjacentX = position.x + direction.dx;
                 int adjacentY = position.y + direction.dy;
+                if(occupiedPositions.contains(new Point(adjacentX, adjacentY))) {
+                    continue;
+                }
                 if(ruleEvaluator.hasEntityWithPropertyAt(TypeRegistry.PUSH, levelMap, ruleset, adjacentX, adjacentY)) {
                     continue;
                 }
@@ -63,6 +67,7 @@ public class InteractionHandler {
                 }
                 CreateAction createAction = new CreateAction(levelMap, entity.getType(), adjacentX, adjacentY);
                 action.add(createAction);
+                occupiedPositions.add(new Point(adjacentX, adjacentY));
             }
         }
     }

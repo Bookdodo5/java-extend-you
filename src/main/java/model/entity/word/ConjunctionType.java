@@ -5,7 +5,7 @@ package model.entity.word;
  * Currently, there is only one, "AND", which is integral to the rule's parsing system.
  */
 public class ConjunctionType extends WordType {
-    public ConjunctionType(int zIndex, String typeId, String spritePath) {
-        super(zIndex, typeId, spritePath, PartOfSpeech.CONJUNCTION);
+    public ConjunctionType(int zIndex, String typeId) {
+        super(zIndex, typeId, PartOfSpeech.CONJUNCTION);
     }
 }

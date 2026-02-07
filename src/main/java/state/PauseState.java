@@ -10,7 +10,7 @@ public class PauseState implements GameState {
      *
      */
     @Override
-    public void onEnter() {
+    public void onEnter(GameStateEnum previousState) {
         // TODO (SOUND) : play menu enter sound
     }
 

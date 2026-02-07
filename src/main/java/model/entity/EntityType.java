@@ -1,28 +1,38 @@
 package model.entity;
 
+import javafx.scene.image.Image;
+
+import java.util.Objects;
+
 /**
  * Represents a type of entity (ex. TEXT_JAVA, JAVA object, TEXT_IS) in the game with its associated properties.
  */
 public class EntityType {
 
     private final String typeId;
-    private final String spritePath;
     private final AnimationStyle animationStyle;
+    private final Image spriteSheet;
     private final int ZIndex;
 
-    public EntityType(int ZIndex, String typeId, String spritePath, AnimationStyle animationStyle) {
+    public EntityType(int ZIndex, String typeId, AnimationStyle animationStyle) {
         this.typeId = typeId;
-        this.spritePath = spritePath;
         this.animationStyle = animationStyle;
         this.ZIndex = ZIndex;
+        this.spriteSheet = new Image(Objects.requireNonNull(
+                getClass().getResourceAsStream(getSpritePath(typeId)))
+        );
+    }
+
+    private static String getSpritePath(String typeId) {
+        return "/sprite/" + typeId.toUpperCase() + ".png";
     }
 
     public String getTypeId() {
         return typeId;
     }
 
-    public String getSpritePath() {
-        return spritePath;
+    public Image getSpriteSheet() {
+        return spriteSheet;
     }
 
     public AnimationStyle getAnimationStyle() {

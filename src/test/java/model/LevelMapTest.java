@@ -18,7 +18,7 @@ class LevelMapTest {
     @BeforeEach
     void setUp() {
         levelMap = new LevelMap(10, 10);
-        javaType = new EntityType(1, "java", "java.png", AnimationStyle.DIRECTIONAL);
+        javaType = new EntityType(1, "java", AnimationStyle.DIRECTIONAL);
     }
 
     @Test

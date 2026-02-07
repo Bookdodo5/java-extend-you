@@ -3,12 +3,10 @@ package application;
 import javafx.scene.canvas.GraphicsContext;
 import model.map.LevelLoader;
 import model.map.LevelMap;
+import model.particle.Particle;
 import state.*;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * A singleton class that manages the overall state of the game.
@@ -24,9 +22,9 @@ public class GameController {
     private final Map<GameStateEnum, GameState> stateMap;
     private final Set<String> completedLevels;
     private GameState currentState;
+    private GameStateEnum currentStateEnum;
     private boolean isCurrentLevelWin;
     private String currentLevelFilePath;
-    private LevelMap currentLevelMapPrototype;
 
     private GameController() {
         stateMap = new HashMap<>();
@@ -46,12 +44,14 @@ public class GameController {
     }
 
     public void setState(GameStateEnum newState) {
+        GameStateEnum previousStateEnum = currentStateEnum;
         if(currentState != null) {
             currentState.onExit();
         }
         currentState = stateMap.get(newState);
+        currentStateEnum = newState;
         if(currentState != null) {
-            currentState.onEnter();
+            currentState.onEnter(previousStateEnum);
         }
         if(newState != GameStateEnum.PAUSED && newState != GameStateEnum.PLAYING) {
             resetCurrentLevel();
@@ -65,7 +65,6 @@ public class GameController {
     private void resetCurrentLevel() {
         currentLevelFilePath = null;
         isCurrentLevelWin = false;
-        currentLevelMapPrototype = null;
     }
 
     public void playLevel(String levelFilePath) {
@@ -78,7 +77,6 @@ public class GameController {
         playingState.loadLevel(levelMap);
         setState(GameStateEnum.PLAYING);
         currentLevelFilePath = levelFilePath;
-        currentLevelMapPrototype = levelMap;
     }
 
     public boolean isLevelCompleted(String levelFilePath) {
@@ -105,10 +103,6 @@ public class GameController {
             return true;
         }
         return false;
-    }
-
-    public LevelMap getCurrentLevelMapPrototype() {
-        return currentLevelMapPrototype;
     }
 
     public void render(GraphicsContext gc) {

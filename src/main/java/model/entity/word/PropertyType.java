@@ -5,7 +5,7 @@ package model.entity.word;
  * Properties are what defines the behavior of entities. (YOU, MOVE, STOP, PUSH, etc.)
  */
 public class PropertyType extends EffectType {
-    public PropertyType(int zIndex, String typeId, String spritePath) {
-        super(zIndex, typeId, spritePath, PartOfSpeech.PROPERTY);
+    public PropertyType(int zIndex, String typeId) {
+        super(zIndex, typeId, PartOfSpeech.PROPERTY);
     }
 }

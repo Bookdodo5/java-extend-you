@@ -6,7 +6,7 @@ package model.entity.word;
  * (ON, FACING, etc.)
  */
 public class ConditionType extends WordType {
-    public ConditionType(int zIndex, String typeId, String spritePath) {
-        super(zIndex, typeId, spritePath, PartOfSpeech.CONDITION);
+    public ConditionType(int zIndex, String typeId) {
+        super(zIndex, typeId, PartOfSpeech.CONDITION);
     }
 }

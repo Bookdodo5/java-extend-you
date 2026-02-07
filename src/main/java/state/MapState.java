@@ -10,7 +10,7 @@ public class MapState implements GameState {
      *
      */
     @Override
-    public void onEnter() {
+    public void onEnter(GameStateEnum previousState) {
         // Code here happens when entering the level selector (world map)
         // TODO (SOUND) : play state transition sound
         // TODO (SOUND) : play map music
@@ -41,7 +41,7 @@ public class MapState implements GameState {
 
     private void handleTrigger() {
         // TODO (MAP) : handle level selection with GameController.getInstance().playLevel(....); RETURN IF NOT POSSIBLE.
-        GameController.getInstance().playLevel("mapTest.csv");
+        GameController.getInstance().playLevel("map/1_JAVA_IS_YOU.csv");
         // TODO (SOUND) : play level music
         // TODO (SOUND) : play level enter sfx
     }

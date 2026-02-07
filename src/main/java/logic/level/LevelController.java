@@ -1,17 +1,28 @@
 package logic.level;
 
-import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import logic.input.InputCommand;
 import logic.level.turn.TurnOrchestrator;
 import logic.input.InputUtility;
+import logic.rule.evaluator.RuleEvaluator;
 import logic.rule.parser.RuleParser;
+import model.action.Action;
 import model.action.ActionStack;
 import model.action.CompositeAction;
+import model.action.DestroyAction;
+import model.action.MoveAction;
 import model.entity.Direction;
+import model.entity.Entity;
+import model.entity.TypeRegistry;
 import model.map.LevelMap;
+import model.particle.Particle;
+import model.particle.ParticleType;
 import model.rule.Rule;
 import model.rule.Ruleset;
+import state.PlayingState;
+import utils.ImageUtils;
 
+import java.lang.reflect.Type;
 import java.util.List;
 
 import static application.Constant.INPUT_COOLDOWN_MILLIS;
@@ -26,14 +37,16 @@ public class LevelController {
     private final RuleParser ruleParser;
     private final ActionStack actionStack;
     private final TurnOrchestrator turnOrchestrator;
+    private final RuleEvaluator ruleEvaluator;
 
     private long lastInputTime = 0L;
 
     public LevelController() {
         this.ruleset = new Ruleset();
+        this.ruleEvaluator = new RuleEvaluator();
         this.ruleParser = new RuleParser();
         this.actionStack = new ActionStack();
-        this.turnOrchestrator = new TurnOrchestrator();
+        this.turnOrchestrator = new TurnOrchestrator(ruleEvaluator);
     }
 
     public void setLevelMap(LevelMap levelMap) {
@@ -47,27 +60,40 @@ public class LevelController {
         return levelMap;
     }
 
-    public void update() {
-        if(System.currentTimeMillis() - lastInputTime < INPUT_COOLDOWN_MILLIS) {
-            return;
-        }
+    public Ruleset getRuleset() {
+        return ruleset;
+    }
 
-        InputCommand playerInput = InputUtility.getPressed();
-        switch (playerInput) {
-            case NONE -> {
-                return;
-            }
+    public void update(PlayingState playingState) {
+
+        long currentTime = System.currentTimeMillis();
+
+        InputCommand triggered = InputUtility.getTriggered();
+        InputCommand pressed = InputUtility.getPressed();
+
+        if (triggered != InputCommand.NONE) {
+            processInput(triggered, playingState);
+            lastInputTime = currentTime;
+            parseRules();
+        }
+        else if(currentTime - lastInputTime >= INPUT_COOLDOWN_MILLIS) {
+            processInput(pressed, playingState);
+            lastInputTime = currentTime;
+            parseRules();
+        }
+    }
+
+    private void processInput(InputCommand inputCommand, PlayingState playingState) {
+        switch (inputCommand) {
             case UNDO -> handleUndo();
             case REDO -> handleRedo();
             case RESET -> handleReset();
-            case TRIGGER -> processTurn(null);
-            case MOVE_UP -> processTurn(Direction.UP);
-            case MOVE_DOWN -> processTurn(Direction.DOWN);
-            case MOVE_LEFT -> processTurn(Direction.LEFT);
-            case MOVE_RIGHT -> processTurn(Direction.RIGHT);
+            case TRIGGER -> processTurn(null, playingState);
+            case MOVE_UP -> processTurn(Direction.UP, playingState);
+            case MOVE_DOWN -> processTurn(Direction.DOWN, playingState);
+            case MOVE_LEFT -> processTurn(Direction.LEFT, playingState);
+            case MOVE_RIGHT -> processTurn(Direction.RIGHT, playingState);
         }
-        lastInputTime = System.currentTimeMillis();
-        parseRules();
     }
 
     private void parseRules() {
@@ -98,9 +124,35 @@ public class LevelController {
         // TODO (SOUND) : play reset sound
     }
 
-    private void processTurn(Direction direction) {
+    private void processTurn(Direction direction, PlayingState playingState) {
         System.out.println("Processing turn with direction: " + direction);
-        CompositeAction action = turnOrchestrator.runTurn(direction, levelMap, ruleset, ruleParser);
-        actionStack.newAction(action);
+        CompositeAction actions = turnOrchestrator.runTurn(direction, levelMap, ruleset, ruleParser);
+        if(actions.getActions().isEmpty()) {
+            return;
+        }
+        addParticles(actions, playingState);
+        actionStack.newAction(actions);
+    }
+
+    private void addParticles(CompositeAction actions, PlayingState playingState) {
+        for(Action action : actions.getActions()) {
+            if(action instanceof MoveAction moveAction) {
+                moveAction.addParticle(playingState);
+            } else if(action instanceof DestroyAction destroyAction) {
+                destroyAction.addParticle(playingState);
+            }
+        }
+        for(Entity entity : ruleEvaluator.getEntitiesWithProperty(TypeRegistry.HOT, levelMap, ruleset)) {
+            if(Math.random() < 0.05) {
+                playingState.addParticle(new Particle(
+                        levelMap.getEntityX(entity) + (Math.random() - 0.5) / 2.0,
+                        levelMap.getEntityY(entity) + (Math.random() - 0.5) / 2.0,
+                        (Math.random() - 0.5) / 1000.0,
+                        (Math.random()) / 1000.0,
+                        ParticleType.HOT,
+                        Color.GRAY
+                ));
+            }
+        }
     }
 }

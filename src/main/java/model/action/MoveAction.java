@@ -1,8 +1,17 @@
 package model.action;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelReader;
+import javafx.scene.paint.Color;
 import model.entity.Direction;
 import model.entity.Entity;
 import model.map.LevelMap;
+import model.particle.Particle;
+import model.particle.ParticleType;
+import state.PlayingState;
+import utils.ImageUtils;
+
+import java.awt.*;
 
 /**
  * An action that moves an entity in a specified direction on the level map.
@@ -40,5 +49,15 @@ public class MoveAction implements Action {
     public void undo() {
         levelMap.setEntityPosition(entity, startX, startY);
         entity.setDirection(startDirection);
+    }
+
+    public void addParticle(PlayingState playingState) {
+        playingState.addParticle(new Particle(
+                startX + (Math.random() - 0.5) / 2.0,
+                startY + (Math.random() - 0.5) / 2.0,
+                (startX - endX) / 500.0, (startY - endY) / 500.0,
+                ParticleType.PUFF,
+                ImageUtils.averageColor(entity.getType().getSpriteSheet())
+        ));
     }
 }

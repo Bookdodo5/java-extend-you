@@ -3,10 +3,16 @@ package application;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import logic.input.InputUtility;
 import state.GameStateEnum;
+
+import java.awt.*;
+import javafx.scene.paint.*;
 
 import static application.Constant.TARGET_SCREEN_WIDTH;
 import static application.Constant.TARGET_SCREEN_HEIGHT;
@@ -21,7 +27,7 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         StackPane root = new StackPane();
         Scene scene = new Scene(root);
         stage.setWidth(TARGET_SCREEN_WIDTH);
@@ -32,13 +38,15 @@ public class Main extends Application {
         GameController gameController = GameController.getInstance();
         GameScreen screen = new GameScreen(TARGET_SCREEN_WIDTH, TARGET_SCREEN_HEIGHT);
 
-        gameController.playLevel("mapTest.csv");
+        // REMOVE THIS LINE AFTER LEVEL SELECTOR IS DONE
+        gameController.playLevel("map/9_PRODUCT_OF_SUM.csv");
 
         screen.updateScale(root);
         root.widthProperty().addListener((_, _, _) -> screen.updateScale(root));
         root.heightProperty().addListener((_, _, _) -> screen.updateScale(root));
 
         root.getChildren().add(screen);
+        root.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
         screen.requestFocus();
 
         AnimationTimer animation = new AnimationTimer() {

@@ -9,8 +9,8 @@ import model.entity.EntityType;
 public class NounType extends EffectType {
     EntityType referencedType;
 
-    public NounType(int zIndex, String typeId, String spritePath, EntityType referencedType) {
-        super(zIndex, typeId, spritePath, PartOfSpeech.NOUN);
+    public NounType(int zIndex, String typeId, EntityType referencedType) {
+        super(zIndex, typeId, PartOfSpeech.NOUN);
         this.referencedType = referencedType;
     }
 

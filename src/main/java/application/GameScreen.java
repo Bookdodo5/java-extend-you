@@ -1,6 +1,7 @@
 package application;
 
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import logic.input.InputUtility;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
