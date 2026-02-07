@@ -78,22 +78,22 @@ public class TypeRegistry {
         return REGISTRY.get(typeId);
     }
 
-    public static final EntityType JAVA = registerEntity("java", AnimationStyle.WOBBLE);
-    public static final EntityType PYTHON = registerEntity("python", AnimationStyle.WOBBLE);
-    public static final EntityType XORGATE = registerEntity("xorgate", AnimationStyle.DIRECTIONAL);
-    public static final EntityType WIRE = registerEntity("wire", AnimationStyle.TILED);
     public static final EntityType LAVA = registerEntity("lava", AnimationStyle.TILED);
     public static final EntityType WATER = registerEntity("water", AnimationStyle.TILED);
-    public static final EntityType FLAG = registerEntity("flag", AnimationStyle.WOBBLE);
-    public static final EntityType PAPER = registerEntity("paper", AnimationStyle.WOBBLE);
     public static final EntityType TILE = registerEntity("tile", AnimationStyle.WOBBLE);
+    public static final EntityType PAPER = registerEntity("paper", AnimationStyle.WOBBLE);
     public static final EntityType WARNING = registerEntity("warning", AnimationStyle.WOBBLE);
     public static final EntityType ERROR = registerEntity("error", AnimationStyle.WOBBLE);
     public static final EntityType CHECK = registerEntity("check", AnimationStyle.WOBBLE);
-    public static final EntityType BUG = registerEntity("bug", AnimationStyle.DIRECTIONAL);
-    public static final EntityType DATABASE = registerEntity("database", AnimationStyle.WOBBLE);
+    public static final EntityType WIRE = registerEntity("wire", AnimationStyle.TILED);
     public static final EntityType GIT = registerEntity("git", AnimationStyle.WOBBLE);
+    public static final EntityType DATABASE = registerEntity("database", AnimationStyle.WOBBLE);
     public static final EntityType CHIP = registerEntity("chip", AnimationStyle.WOBBLE);
+    public static final EntityType BUG = registerEntity("bug", AnimationStyle.DIRECTIONAL);
+    public static final EntityType XORGATE = registerEntity("xorgate", AnimationStyle.DIRECTIONAL);
+    public static final EntityType PYTHON = registerEntity("python", AnimationStyle.WOBBLE);
+    public static final EntityType FLAG = registerEntity("flag", AnimationStyle.WOBBLE);
+    public static final EntityType JAVA = registerEntity("java", AnimationStyle.WOBBLE);
 
     public static final NounType TEXT_JAVA = registerNoun("text_java", JAVA);
     public static final NounType TEXT_PYTHON = registerNoun("text_python", PYTHON);

@@ -34,6 +34,7 @@ public class Main extends Application {
 
         gameController.playLevel("mapTest.csv");
 
+        screen.updateScale(root);
         root.widthProperty().addListener((_, _, _) -> screen.updateScale(root));
         root.heightProperty().addListener((_, _, _) -> screen.updateScale(root));
 

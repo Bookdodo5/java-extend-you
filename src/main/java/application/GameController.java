@@ -26,7 +26,7 @@ public class GameController {
     private GameState currentState;
     private boolean isCurrentLevelWin;
     private String currentLevelFilePath;
-    private LevelMap currentLevelMap;
+    private LevelMap currentLevelMapPrototype;
 
     private GameController() {
         stateMap = new HashMap<>();
@@ -65,7 +65,7 @@ public class GameController {
     private void resetCurrentLevel() {
         currentLevelFilePath = null;
         isCurrentLevelWin = false;
-        currentLevelMap = null;
+        currentLevelMapPrototype = null;
     }
 
     public void playLevel(String levelFilePath) {
@@ -78,7 +78,7 @@ public class GameController {
         playingState.loadLevel(levelMap);
         setState(GameStateEnum.PLAYING);
         currentLevelFilePath = levelFilePath;
-        currentLevelMap = levelMap;
+        currentLevelMapPrototype = levelMap;
     }
 
     public boolean isLevelCompleted(String levelFilePath) {
@@ -107,8 +107,8 @@ public class GameController {
         return false;
     }
 
-    public LevelMap getCurrentLevelMap() {
-        return currentLevelMap;
+    public LevelMap getCurrentLevelMapPrototype() {
+        return currentLevelMapPrototype;
     }
 
     public void render(GraphicsContext gc) {

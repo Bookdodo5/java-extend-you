@@ -11,6 +11,7 @@ import model.entity.EntityType;
 import model.map.LevelMap;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,7 +76,11 @@ public class PlayingState implements GameState {
         gc.fillRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         displayLevelMapInConsole(levelMap);
 
-        for (Entity entity : levelMap.getEntities()) {
+        List<Entity> entities = levelMap.getEntities().stream()
+                .sorted(Comparator.comparingInt(e -> e.getType().getZIndex()))
+                .toList();
+
+        for (Entity entity : entities) {
             EntityType entityType = entity.getType();
             Image image = new Image(entityType.getSpritePath());
             int xCoordinate = levelMap.getEntityX(entity);
