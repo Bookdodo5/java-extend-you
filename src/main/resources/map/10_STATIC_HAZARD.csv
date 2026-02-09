@@ -1,0 +1,11 @@
+15,10
+.           , .           , .           , .           , .           , .           , .           , .           , .           , wire        , wire        , wire        , wire        , wire        , wire
+.           , .           , .           , wire        , wire        , wire        , wire        , wire        , .           , wire        , .           , is          , win         , and         , text_xorgate
+.           , .           , .           , .           , text_check  , is          , text_chip   , .           , .           , wire        , text_check  , wire        , wire        , wire        , is
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , wire        , you
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .
+.           , .           , xorgate     , .           , .           , .           , .           , .           , check       , .           , .           , .           , .           , .           , .
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , text_wire
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , is
+.           , .           , .           , .           , text_chip   , is          , text_chip   , .           , .           , .           , .           , .           , .           , .           , stop
+.           , .           , .           , wire        , wire        , wire        , wire        , wire        , .           , .           , .           , .           , .           , .           , .

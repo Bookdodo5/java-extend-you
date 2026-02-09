@@ -34,7 +34,7 @@ class CollisionResolverTest {
     private Entity setEntityPosition(EntityType type, int x, int y, Direction direction) {
         Entity entity = new Entity(type);
         entity.setDirection(direction);
-        levelMap.setEntityPosition(entity, x, y);
+        levelMap.setPosition(entity, x, y);
         return entity;
     }
 
@@ -72,8 +72,8 @@ class CollisionResolverTest {
         CompositeAction result = resolveCollisions(List.of(intent));
         result.execute();
 
-        assertEquals(6, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
+        assertEquals(6, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
     }
 
     @Test
@@ -86,8 +86,8 @@ class CollisionResolverTest {
         result.execute();
 
         // Should not move outside boundary
-        assertEquals(0, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
+        assertEquals(0, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
     }
 
     @Test
@@ -102,8 +102,8 @@ class CollisionResolverTest {
         result.execute();
 
         // Should not move into STOP entity
-        assertEquals(5, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
+        assertEquals(5, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
     }
 
     @Test
@@ -118,10 +118,10 @@ class CollisionResolverTest {
         result.execute();
 
         // JAVA should move to (6, 5) and PYTHON should be pushed to (7, 5)
-        assertEquals(6, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
-        assertEquals(7, levelMap.getEntityX(pythonEntity));
-        assertEquals(5, levelMap.getEntityY(pythonEntity));
+        assertEquals(6, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
+        assertEquals(7, levelMap.getX(pythonEntity));
+        assertEquals(5, levelMap.getY(pythonEntity));
     }
 
     @Test
@@ -138,9 +138,9 @@ class CollisionResolverTest {
         result.execute();
 
         // All should be pushed
-        assertEquals(6, levelMap.getEntityX(javaEntity));
-        assertEquals(7, levelMap.getEntityX(pythonEntity));
-        assertEquals(8, levelMap.getEntityX(paperEntity));
+        assertEquals(6, levelMap.getX(javaEntity));
+        assertEquals(7, levelMap.getX(pythonEntity));
+        assertEquals(8, levelMap.getX(paperEntity));
     }
 
     @Test
@@ -157,8 +157,8 @@ class CollisionResolverTest {
         result.execute();
 
         // Nothing should move because push is blocked by STOP
-        assertEquals(5, levelMap.getEntityX(javaEntity));
-        assertEquals(6, levelMap.getEntityX(pythonEntity));
+        assertEquals(5, levelMap.getX(javaEntity));
+        assertEquals(6, levelMap.getX(pythonEntity));
     }
 
     @Test
@@ -173,8 +173,8 @@ class CollisionResolverTest {
         result.execute();
 
         // Nothing should move because push would go outside boundary
-        assertEquals(8, levelMap.getEntityX(javaEntity));
-        assertEquals(9, levelMap.getEntityX(pythonEntity));
+        assertEquals(8, levelMap.getX(javaEntity));
+        assertEquals(9, levelMap.getX(pythonEntity));
     }
 
     @Test
@@ -189,8 +189,8 @@ class CollisionResolverTest {
         result.execute();
 
         // JAVA should bounce back to (4, 5) and face LEFT
-        assertEquals(4, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
+        assertEquals(4, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
         assertEquals(Direction.LEFT, javaEntity.getDirection());
     }
 
@@ -208,7 +208,7 @@ class CollisionResolverTest {
         result.execute();
 
         // JAVA should rotate but not move (STOP at both sides)
-        assertEquals(5, levelMap.getEntityX(javaEntity));
+        assertEquals(5, levelMap.getX(javaEntity));
         assertEquals(Direction.LEFT, javaEntity.getDirection());
     }
 
@@ -226,15 +226,17 @@ class CollisionResolverTest {
         result.execute();
 
         // JAVA should rotate and push PAPER
-        assertEquals(4, levelMap.getEntityX(javaEntity));
+        assertEquals(4, levelMap.getX(javaEntity));
         assertEquals(Direction.LEFT, javaEntity.getDirection());
-        assertEquals(3, levelMap.getEntityX(paperEntity));
+        assertEquals(3, levelMap.getX(paperEntity));
     }
 
     @Test
     void testResolveCollisionsCreatingEntityStack() {
         Entity javaEntity = setEntityPosition(TypeRegistry.JAVA, 5, 5);
+        javaEntity.setDirection(Direction.RIGHT);
         Entity pythonEntity = setEntityPosition(TypeRegistry.PYTHON, 7, 5);
+        pythonEntity.setDirection(Direction.LEFT);
         rule(TypeRegistry.TEXT_JAVA, TypeRegistry.MOVE);
         rule(TypeRegistry.TEXT_PYTHON, TypeRegistry.MOVE);
         rule(TypeRegistry.TEXT_JAVA, TypeRegistry.STOP);
@@ -247,15 +249,15 @@ class CollisionResolverTest {
         result1.execute();
 
         // Both should move towards each other
-        assertEquals(6, levelMap.getEntityX(javaEntity));
-        assertEquals(6, levelMap.getEntityX(pythonEntity));
+        assertEquals(6, levelMap.getX(javaEntity));
+        assertEquals(6, levelMap.getX(pythonEntity));
 
         CompositeAction result2 = resolveCollisions(List.of(intent1, intent2));
         result2.execute();
 
         // Both should move past each other
-        assertEquals(7, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityX(pythonEntity));
+        assertEquals(7, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getX(pythonEntity));
     }
 
     @Test
@@ -271,8 +273,8 @@ class CollisionResolverTest {
         result.execute();
 
         // PYTHON has both PUSH and STOP, so it should be pushable
-        assertEquals(6, levelMap.getEntityX(javaEntity));
-        assertEquals(7, levelMap.getEntityX(pythonEntity));
+        assertEquals(6, levelMap.getX(javaEntity));
+        assertEquals(7, levelMap.getX(pythonEntity));
     }
 
     @Test
@@ -290,8 +292,8 @@ class CollisionResolverTest {
         result.execute();
 
         // Nothing should move because both are STOP
-        assertEquals(0, levelMap.getEntityX(javaEntity));
-        assertEquals(1, levelMap.getEntityX(pythonEntity));
+        assertEquals(0, levelMap.getX(javaEntity));
+        assertEquals(1, levelMap.getX(pythonEntity));
     }
 
 
@@ -308,8 +310,8 @@ class CollisionResolverTest {
         result.execute();
 
         // Both should stack together at (0, 5)
-        assertEquals(0, levelMap.getEntityX(javaEntity));
-        assertEquals(0, levelMap.getEntityX(pythonEntity));
+        assertEquals(0, levelMap.getX(javaEntity));
+        assertEquals(0, levelMap.getX(pythonEntity));
     }
 
     @Test
@@ -322,6 +324,6 @@ class CollisionResolverTest {
         result.execute();
 
         // Should move normally into empty space
-        assertEquals(6, levelMap.getEntityX(javaEntity));
+        assertEquals(6, levelMap.getX(javaEntity));
     }
 }

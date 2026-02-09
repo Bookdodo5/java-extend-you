@@ -1,5 +1,6 @@
 package model.map;
 
+import model.entity.Direction;
 import model.entity.Entity;
 import model.entity.EntityType;
 import model.entity.TypeRegistry;
@@ -9,7 +10,7 @@ import java.util.Scanner;
 
 /**
  * Utility class for loading maps from CSV files.
- *
+ * <p>
  * The CSV file format is as follows:
  * <ul>
  * <li>First line: width,height</li>
@@ -27,7 +28,8 @@ import java.util.Scanner;
 
 public class LevelLoader {
 
-    private LevelLoader() {}
+    private LevelLoader() {
+    }
 
     /**
      * Loads a level map from a CSV file.
@@ -62,9 +64,19 @@ public class LevelLoader {
                     String[] entityIds = cellData.split("\\+");
 
                     for (String entityId : entityIds) {
-                        EntityType entityType = TypeRegistry.getType(entityId);
+                        String[] parts = entityId.trim().split("-");
+
+                        EntityType entityType = TypeRegistry.getType(parts[0]);
                         if (entityType == null) continue;
-                        levelMap.setEntityPosition(new Entity(entityType), j, i);
+                        Entity newEntity = new Entity(entityType);
+
+                        Direction facing = Direction.DOWN;
+                        if (parts.length == 2) {
+                            facing = Direction.valueOf(parts[1].toUpperCase());
+                        }
+                        newEntity.setDirection(facing);
+
+                        levelMap.setPosition(newEntity, j, i);
                     }
                 }
             }

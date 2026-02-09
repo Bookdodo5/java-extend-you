@@ -24,7 +24,7 @@ class LevelMapTest {
     @Test
     void testAddEntity() {
         Entity player = new Entity(javaType);
-        levelMap.setEntityPosition(player, 5, 5);
+        levelMap.setPosition(player, 5, 5);
 
         List<Entity> entitiesAt = levelMap.getEntitiesAt(5, 5);
         assertTrue(entitiesAt.contains(player));
@@ -32,14 +32,14 @@ class LevelMapTest {
     }
 
     @Test
-    void testSetEntityPosition() {
+    void testSetPosition() {
         Entity player = new Entity(javaType);
-        levelMap.setEntityPosition(player, 1, 1);
+        levelMap.setPosition(player, 1, 1);
 
-        levelMap.setEntityPosition(player, 2, 2);
+        levelMap.setPosition(player, 2, 2);
 
-        assertEquals(2, levelMap.getEntityX(player));
-        assertEquals(2, levelMap.getEntityY(player));
+        assertEquals(2, levelMap.getX(player));
+        assertEquals(2, levelMap.getY(player));
         assertTrue(levelMap.getEntitiesAt(1, 1).isEmpty());
         assertTrue(levelMap.getEntitiesAt(2, 2).contains(player));
     }
@@ -55,7 +55,7 @@ class LevelMapTest {
     @Test
     void testRemoveEntity() {
         Entity player = new Entity(javaType);
-        levelMap.setEntityPosition(player, 0, 0);
+        levelMap.setPosition(player, 0, 0);
         levelMap.removeEntity(player);
 
         assertTrue(levelMap.getEntitiesAt(0, 0).isEmpty());

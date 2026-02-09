@@ -26,9 +26,9 @@ class TextScannerTest {
         Entity java = new Entity(TypeRegistry.TEXT_JAVA);
         Entity is = new Entity(TypeRegistry.IS);
         Entity you = new Entity(TypeRegistry.YOU);
-        levelMap.setEntityPosition(java, 0, 0);
-        levelMap.setEntityPosition(is, 1, 0);
-        levelMap.setEntityPosition(you, 2, 0);
+        levelMap.setPosition(java, 0, 0);
+        levelMap.setPosition(is, 1, 0);
+        levelMap.setPosition(you, 2, 0);
 
         List<List<List<Entity>>> results = scanner.scanText(levelMap);
         // one horizontal sequence
@@ -46,9 +46,9 @@ class TextScannerTest {
         Entity rockText = new Entity(TypeRegistry.TEXT_PAPER);
         Entity is = new Entity(TypeRegistry.IS);
         Entity you = new Entity(TypeRegistry.YOU);
-        levelMap.setEntityPosition(rockText, 4, 1);
-        levelMap.setEntityPosition(is, 4, 2);
-        levelMap.setEntityPosition(you, 4, 3);
+        levelMap.setPosition(rockText, 4, 1);
+        levelMap.setPosition(is, 4, 2);
+        levelMap.setPosition(you, 4, 3);
 
         List<List<List<Entity>>> results = scanner.scanText(levelMap);
         // one vertical sequence
@@ -67,10 +67,10 @@ class TextScannerTest {
         Entity python = new Entity(TypeRegistry.TEXT_PYTHON);
         Entity is = new Entity(TypeRegistry.IS);
         Entity you = new Entity(TypeRegistry.YOU);
-        levelMap.setEntityPosition(java, 0, 0);
-        levelMap.setEntityPosition(python, 0, 0);
-        levelMap.setEntityPosition(is, 1, 0);
-        levelMap.setEntityPosition(you, 2, 0);
+        levelMap.setPosition(java, 0, 0);
+        levelMap.setPosition(python, 0, 0);
+        levelMap.setPosition(is, 1, 0);
+        levelMap.setPosition(you, 2, 0);
 
         List<List<List<Entity>>> results = scanner.scanText(levelMap);
         assertEquals(1, results.size());
@@ -90,8 +90,8 @@ class TextScannerTest {
         // only two consecutive words -> should be ignored
         Entity java = new Entity(TypeRegistry.TEXT_JAVA);
         Entity is = new Entity(TypeRegistry.IS);
-        levelMap.setEntityPosition(java, 0, 5);
-        levelMap.setEntityPosition(is, 1, 5);
+        levelMap.setPosition(java, 0, 5);
+        levelMap.setPosition(is, 1, 5);
 
         List<List<List<Entity>>> results = scanner.scanText(levelMap);
         assertTrue(results.isEmpty(), "Sequences shorter than 3 should be ignored");
@@ -100,18 +100,18 @@ class TextScannerTest {
     @Test
     void testMultipleSequences() {
         // two horizontal sequences on different rows
-        levelMap.setEntityPosition(new Entity(TypeRegistry.TEXT_JAVA), 0, 1);
-        levelMap.setEntityPosition(new Entity(TypeRegistry.ON), 1, 1);
-        levelMap.setEntityPosition(new Entity(TypeRegistry.TEXT_PAPER), 2, 1);
-        levelMap.setEntityPosition(new Entity(TypeRegistry.IS), 3, 1);
-        levelMap.setEntityPosition(new Entity(TypeRegistry.YOU), 4, 1);
+        levelMap.setPosition(new Entity(TypeRegistry.TEXT_JAVA), 0, 1);
+        levelMap.setPosition(new Entity(TypeRegistry.ON), 1, 1);
+        levelMap.setPosition(new Entity(TypeRegistry.TEXT_PAPER), 2, 1);
+        levelMap.setPosition(new Entity(TypeRegistry.IS), 3, 1);
+        levelMap.setPosition(new Entity(TypeRegistry.YOU), 4, 1);
 
-        levelMap.setEntityPosition(new Entity(TypeRegistry.TEXT_PYTHON), 3, 0);
-        levelMap.setEntityPosition(new Entity(TypeRegistry.SINK), 3, 2);
+        levelMap.setPosition(new Entity(TypeRegistry.TEXT_PYTHON), 3, 0);
+        levelMap.setPosition(new Entity(TypeRegistry.SINK), 3, 2);
 
-        levelMap.setEntityPosition(new Entity(TypeRegistry.TEXT_PAPER), 0, 2);
-        levelMap.setEntityPosition(new Entity(TypeRegistry.IS), 1, 2);
-        levelMap.setEntityPosition(new Entity(TypeRegistry.PUSH), 2, 2);
+        levelMap.setPosition(new Entity(TypeRegistry.TEXT_PAPER), 0, 2);
+        levelMap.setPosition(new Entity(TypeRegistry.IS), 1, 2);
+        levelMap.setPosition(new Entity(TypeRegistry.PUSH), 2, 2);
 
         List<List<List<Entity>>> results = scanner.scanText(levelMap);
         // expect two sequences (row 0 and row 2)

@@ -32,7 +32,7 @@ class InteractionHandlerTest {
 
     private Entity addEntity(EntityType type, int x, int y) {
         Entity entity = new Entity(type);
-        levelMap.setEntityPosition(entity, x, y);
+        levelMap.setPosition(entity, x, y);
         return entity;
     }
 

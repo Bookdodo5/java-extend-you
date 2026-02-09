@@ -1,0 +1,10 @@
+17,9
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , lava        , lava        , text_bug    , text_flag   , text_java
+text_python , is          , you         , .           , .           , .           , .           , .           , .           , .           , .           , .           , lava        , lava        , is          , is          , near
+.           , .           , .           , .           , .           , extend      , .           , .           , .           , python      , .           , .           , lava        , lava        , stop        , win         , text_lava
+text_java   , is          , push        , .           , .           , .           , .           , .           , .           , .           , .           , .           , lava        , lava        , .           , .           , is
+.           , .           , .           , .           , .           , extend      , .           , .           , .           , text_java   , .           , .           , lava        , lava        , .           , .           , text_wire
+text_xorgate, is          , sink        , .           , .           , .           , .           , .           , .           , .           , .           , .           , lava        , lava        , .           , .           , flag
+.           , .           , .           , .           , .           , extend      , .           , .           , .           , java        , .           , .           , lava        , lava        , .           , .           , text_lava
+text_wire   , is          , text_wire   , .           , .           , .           , .           , .           , .           , .           , .           , .           , lava        , lava        , .           , .           , is
+bug-RIGHT   , bug-RIGHT   , bug-RIGHT   , .           , text_python , instanceof  , text_wire   , is          , move        , and         , move        , .           , lava        , lava        , .           , .           , defeat

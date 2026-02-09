@@ -38,9 +38,9 @@ class RuleEvaluatorTest {
         paperEntity.setDirection(Direction.RIGHT);
         flagEntity.setDirection(Direction.RIGHT);
 
-        levelMap.setEntityPosition(javaEntity, 5, 5);
-        levelMap.setEntityPosition(paperEntity, 6, 5);
-        levelMap.setEntityPosition(flagEntity, 7, 5);
+        levelMap.setPosition(javaEntity, 5, 5);
+        levelMap.setPosition(paperEntity, 6, 5);
+        levelMap.setPosition(flagEntity, 7, 5);
     }
 
     private Rule createSimpleRule(EntityType subjectType, EntityType propertyType) {
@@ -95,7 +95,7 @@ class RuleEvaluatorTest {
         assertFalse(evaluator.hasProperty(javaEntity, TypeRegistry.YOU, levelMap, ruleset));
 
         // Java is on rock
-        levelMap.setEntityPosition(paperEntity, 5, 5);
+        levelMap.setPosition(paperEntity, 5, 5);
         assertTrue(evaluator.hasProperty(javaEntity, TypeRegistry.YOU, levelMap, ruleset));
     }
 
@@ -200,7 +200,7 @@ class RuleEvaluatorTest {
         assertTrue(transformations.isEmpty());
 
         // Java is on rock
-        levelMap.setEntityPosition(paperEntity, 5, 5);
+        levelMap.setPosition(paperEntity, 5, 5);
         transformations = evaluator.getTransformations(levelMap, ruleset);
         assertEquals(1, transformations.size());
         assertEquals(javaEntity, transformations.getFirst().getSource());

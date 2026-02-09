@@ -30,7 +30,7 @@ class TurnOrchestratorTest {
     private Entity setEntityPosition(EntityType type, int x, int y, Direction direction) {
         Entity entity = new Entity(type);
         entity.setDirection(direction);
-        levelMap.setEntityPosition(entity, x, y);
+        levelMap.setPosition(entity, x, y);
         return entity;
     }
 
@@ -65,26 +65,26 @@ class TurnOrchestratorTest {
         CompositeAction result1 = runTurn(Direction.DOWN);
         assertNotNull(result1);
         assertEquals(1, result1.size());
-        assertEquals(5, levelMap.getEntityX(javaEntity));
-        assertEquals(6, levelMap.getEntityY(javaEntity));
+        assertEquals(5, levelMap.getX(javaEntity));
+        assertEquals(6, levelMap.getY(javaEntity));
 
         CompositeAction result2 = runTurn(Direction.LEFT);
         assertNotNull(result2);
         assertEquals(1, result2.size());
-        assertEquals(4, levelMap.getEntityX(javaEntity));
-        assertEquals(6, levelMap.getEntityY(javaEntity));
+        assertEquals(4, levelMap.getX(javaEntity));
+        assertEquals(6, levelMap.getY(javaEntity));
 
         CompositeAction result3 = runTurn(Direction.UP);
         assertNotNull(result3);
         assertEquals(1, result3.size());
-        assertEquals(4, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
+        assertEquals(4, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
 
         CompositeAction result4 = runTurn(Direction.RIGHT);
         assertNotNull(result4);
         assertEquals(1, result4.size());
-        assertEquals(5, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
+        assertEquals(5, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
     }
 
     @Test
@@ -95,18 +95,18 @@ class TurnOrchestratorTest {
         addRule(TypeRegistry.TEXT_PAPER, TypeRegistry.IS, TypeRegistry.PUSH, 1);
 
         runTurn(Direction.RIGHT);
-        assertEquals(6, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
-        assertEquals(7, levelMap.getEntityX(paperEntity));
-        assertEquals(5, levelMap.getEntityY(paperEntity));
+        assertEquals(6, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
+        assertEquals(7, levelMap.getX(paperEntity));
+        assertEquals(5, levelMap.getY(paperEntity));
 
         runTurn(Direction.DOWN);
         runTurn(Direction.RIGHT);
         runTurn(Direction.UP);
-        assertEquals(7, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
-        assertEquals(7, levelMap.getEntityX(paperEntity));
-        assertEquals(4, levelMap.getEntityY(paperEntity));
+        assertEquals(7, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
+        assertEquals(7, levelMap.getX(paperEntity));
+        assertEquals(4, levelMap.getY(paperEntity));
     }
 
     @Test
@@ -117,12 +117,12 @@ class TurnOrchestratorTest {
         addRule(TypeRegistry.TEXT_PAPER, TypeRegistry.IS, TypeRegistry.STOP, 1);
 
         runTurn(Direction.RIGHT); // blocked by boundary
-        assertEquals(9, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
+        assertEquals(9, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
 
         runTurn(Direction.LEFT); // blocked by paper
-        assertEquals(9, levelMap.getEntityX(javaEntity));
-        assertEquals(5, levelMap.getEntityY(javaEntity));
+        assertEquals(9, levelMap.getX(javaEntity));
+        assertEquals(5, levelMap.getY(javaEntity));
     }
 
     @Test
@@ -131,12 +131,12 @@ class TurnOrchestratorTest {
         addRule(TypeRegistry.TEXT_JAVA, TypeRegistry.IS, TypeRegistry.MOVE, 0);
 
         runTurn(Direction.LEFT);
-        assertEquals(5, levelMap.getEntityX(javaEntity));
-        assertEquals(6, levelMap.getEntityY(javaEntity));
+        assertEquals(5, levelMap.getX(javaEntity));
+        assertEquals(6, levelMap.getY(javaEntity));
 
         runTurn(Direction.RIGHT);
-        assertEquals(5, levelMap.getEntityX(javaEntity));
-        assertEquals(7, levelMap.getEntityY(javaEntity));
+        assertEquals(5, levelMap.getX(javaEntity));
+        assertEquals(7, levelMap.getY(javaEntity));
     }
 
     @Test
@@ -202,8 +202,8 @@ class TurnOrchestratorTest {
         addRule(TypeRegistry.TEXT_FLAG, TypeRegistry.HAS, TypeRegistry.TEXT_PAPER, 5);
 
         runTurn(Direction.RIGHT);
-        assertEquals(6, levelMap.getEntityX(javaEntity));
-        assertEquals(8, levelMap.getEntityX(paperEntity));
+        assertEquals(6, levelMap.getX(javaEntity));
+        assertEquals(8, levelMap.getX(paperEntity));
         assertEquals(Direction.RIGHT, paperEntity.getDirection());
         assertFalse(levelMap.getEntities().contains(pythonEntity));
         assertEquals(TypeRegistry.FLAG, levelMap.getEntitiesAt(8, 8).getFirst().getType());

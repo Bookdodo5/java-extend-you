@@ -1,8 +1,5 @@
 package model.action;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.paint.Color;
 import model.entity.Direction;
 import model.entity.Entity;
 import model.map.LevelMap;
@@ -25,29 +22,33 @@ public class MoveAction implements Action {
     private final Direction endDirection;
     private Direction startDirection;
 
-    public MoveAction(LevelMap levelMap, Entity entity, Direction direction) {
+    public MoveAction(LevelMap levelMap, Entity entity, Point fromPos, Direction direction) {
         this.levelMap = levelMap;
         this.entity = entity;
         this.startDirection = entity.getDirection();
         this.endDirection = direction;
-        this.endX = levelMap.getEntityX(entity) + direction.dx;
-        this.endY = levelMap.getEntityY(entity) + direction.dy;
-        startX = levelMap.getEntityX(entity);
-        startY = levelMap.getEntityY(entity);
+        this.endX = fromPos.x + direction.dx;
+        this.endY = fromPos.y + direction.dy;
+        startX = fromPos.x;
+        startY = fromPos.y;
+    }
+
+    public MoveAction(LevelMap levelMap, Entity entity, Direction direction) {
+        this(levelMap, entity, levelMap.getPosition(entity), direction);
     }
 
     @Override
     public void execute() {
-        startX = levelMap.getEntityX(entity);
-        startY = levelMap.getEntityY(entity);
+        startX = levelMap.getX(entity);
+        startY = levelMap.getY(entity);
         startDirection = entity.getDirection();
-        levelMap.setEntityPosition(entity, endX, endY);
+        levelMap.setPosition(entity, endX, endY);
         entity.setDirection(endDirection);
     }
 
     @Override
     public void undo() {
-        levelMap.setEntityPosition(entity, startX, startY);
+        levelMap.setPosition(entity, startX, startY);
         entity.setDirection(startDirection);
     }
 
@@ -55,7 +56,7 @@ public class MoveAction implements Action {
         playingState.addParticle(new Particle(
                 startX + (Math.random() - 0.5) / 2.0,
                 startY + (Math.random() - 0.5) / 2.0,
-                (startX - endX) / 500.0, (startY - endY) / 500.0,
+                (startX - endX) / 1000.0, (startY - endY) / 1000.0,
                 ParticleType.PUFF,
                 ImageUtils.averageColor(entity.getType().getSpriteSheet())
         ));

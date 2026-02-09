@@ -34,12 +34,21 @@ public class Entity {
         return entityType;
     }
 
-
     public Direction getDirection() {
         return direction;
     }
 
     public void setDirection(Direction direction) {
         this.direction = direction;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof Entity other && this.entityId.equals(other.entityId);
+    }
+
+    @Override
+    public int hashCode() {
+        return entityId.hashCode();
     }
 }

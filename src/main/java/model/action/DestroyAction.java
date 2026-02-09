@@ -1,8 +1,6 @@
 package model.action;
 
-import model.entity.Direction;
 import model.entity.Entity;
-import model.entity.EntityType;
 import model.map.LevelMap;
 import model.particle.Particle;
 import model.particle.ParticleType;
@@ -22,8 +20,8 @@ public class DestroyAction implements Action {
     public DestroyAction(LevelMap levelMap, Entity entity) {
         this.levelMap = levelMap;
         this.entity = entity;
-        this.posX = levelMap.getEntityX(entity);
-        this.posY = levelMap.getEntityY(entity);
+        this.posX = levelMap.getX(entity);
+        this.posY = levelMap.getY(entity);
     }
 
     public Entity getEntity() {
@@ -37,7 +35,7 @@ public class DestroyAction implements Action {
 
     @Override
     public void undo() {
-        levelMap.setEntityPosition(entity, posX, posY);
+        levelMap.setPosition(entity, posX, posY);
     }
 
     public void addParticle(PlayingState playingState) {

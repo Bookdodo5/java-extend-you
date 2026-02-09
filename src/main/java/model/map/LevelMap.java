@@ -1,14 +1,10 @@
 package model.map;
 
 import model.entity.Entity;
-import model.entity.EntityType;
 
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Represents a 2D grid-based level map containing entities.
@@ -32,9 +28,9 @@ public class LevelMap {
         this.grid = new HashMap<>();
         this.entityPositions = new HashMap<>();
         for (Entity entity : other.getEntities()) {
-            Entity copiedEntity = new Entity(entity);
+            Entity clonedEntity = new Entity(entity);
             Point position = other.entityPositions.get(entity);
-            this.setEntityPosition(copiedEntity, position.x, position.y);
+            this.setPosition(clonedEntity, position.x, position.y);
         }
     }
 
@@ -77,7 +73,7 @@ public class LevelMap {
      * @param newX   The new x-coordinate.
      * @param newY   The new y-coordinate.
      */
-    public void setEntityPosition(Entity entity, int newX, int newY) {
+    public void setPosition(Entity entity, int newX, int newY) {
         Point oldPosition = entityPositions.get(entity);
         if (oldPosition != null) {
             List<Entity> cell = grid.get(oldPosition);
@@ -101,7 +97,7 @@ public class LevelMap {
      * @return A Point representing the entity's position.
      * @throws IllegalStateException if the entity is not found on the map.
      */
-    public Point getEntityPosition(Entity entity) {
+    public Point getPosition(Entity entity) {
         Point position = entityPositions.get(entity);
         if (position == null) {
             throw new IllegalStateException("Entity not found in map: " + entity.getEntityId());
@@ -115,8 +111,8 @@ public class LevelMap {
      * @return The X coordinate of the entity.
      * @throws IllegalStateException if the entity is not found on the map.
      */
-    public int getEntityX(Entity entity) {
-        return getEntityPosition(entity).x;
+    public int getX(Entity entity) {
+        return getPosition(entity).x;
     }
 
     /** Get the Y coordinate of an entity on the map.
@@ -125,8 +121,8 @@ public class LevelMap {
      * @return The Y coordinate of the entity.
      * @throws IllegalStateException if the entity is not found on the map.
      */
-    public int getEntityY(Entity entity) {
-        return getEntityPosition(entity).y;
+    public int getY(Entity entity) {
+        return getPosition(entity).y;
     }
 
     /** Get all entities at a specific position on the map.
@@ -149,5 +145,12 @@ public class LevelMap {
      */
     public List<Entity> getEntities() {
         return new ArrayList<>(entityPositions.keySet());
+    }
+
+    public Entity getEntityById(UUID entityId) {
+        return entityPositions.keySet().stream()
+                .filter(e -> e.getEntityId().equals(entityId))
+                .findFirst()
+                .orElse(null);
     }
 }

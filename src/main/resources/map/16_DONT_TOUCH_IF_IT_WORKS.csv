@@ -1,0 +1,12 @@
+15,11
+text_bug    , near        , text_python , extend      , text_error  , .           , text_python , is          , you         , .           , .           , .           , .           , .           , text_error
+.           , text_bug    , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , is
+.           , .           , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , .           , .           , text_error
+.           , .           , wire        , .           , .           , .           , .           , .           , .           , .           , .           , wire        , .           , .           , .
+.           , .           , wire        , .           , .           , .           , .           , .           , text_bug    , .           , .           , wire        , .           , .           , .
+.           , .           , wire        , python      , .           , bug         , .           , .           , is          , is          , .           , wire        , .           , .           , .
+.           , .           , wire        , .           , .           , .           , .           , .           , push        , .           , .           , wire        , .           , .           , .
+.           , .           , wire        , .           , .           , .           , .           , .           , .           , .           , .           , wire        , .           , .           , .
+.           , .           , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , .           , .           , .
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .
+text_wire   , is          , melt        , and         , defeat      , .           , text_bug    , is          , hot         , .           , .           , .           , .           , win         , .

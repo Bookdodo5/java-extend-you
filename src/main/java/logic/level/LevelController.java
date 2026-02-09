@@ -20,9 +20,7 @@ import model.particle.ParticleType;
 import model.rule.Rule;
 import model.rule.Ruleset;
 import state.PlayingState;
-import utils.ImageUtils;
 
-import java.lang.reflect.Type;
 import java.util.List;
 
 import static application.Constant.INPUT_COOLDOWN_MILLIS;
@@ -46,7 +44,7 @@ public class LevelController {
         this.ruleEvaluator = new RuleEvaluator();
         this.ruleParser = new RuleParser();
         this.actionStack = new ActionStack();
-        this.turnOrchestrator = new TurnOrchestrator(ruleEvaluator);
+        this.turnOrchestrator = new TurnOrchestrator();
     }
 
     public void setLevelMap(LevelMap levelMap) {
@@ -76,7 +74,7 @@ public class LevelController {
             lastInputTime = currentTime;
             parseRules();
         }
-        else if(currentTime - lastInputTime >= INPUT_COOLDOWN_MILLIS) {
+        else if(currentTime - lastInputTime >= INPUT_COOLDOWN_MILLIS && pressed != InputCommand.NONE) {
             processInput(pressed, playingState);
             lastInputTime = currentTime;
             parseRules();
@@ -145,8 +143,8 @@ public class LevelController {
         for(Entity entity : ruleEvaluator.getEntitiesWithProperty(TypeRegistry.HOT, levelMap, ruleset)) {
             if(Math.random() < 0.05) {
                 playingState.addParticle(new Particle(
-                        levelMap.getEntityX(entity) + (Math.random() - 0.5) / 2.0,
-                        levelMap.getEntityY(entity) + (Math.random() - 0.5) / 2.0,
+                        levelMap.getX(entity) + (Math.random() - 0.5) / 2.0,
+                        levelMap.getY(entity) + (Math.random() - 0.5) / 2.0,
                         (Math.random() - 0.5) / 1000.0,
                         (Math.random()) / 1000.0,
                         ParticleType.HOT,

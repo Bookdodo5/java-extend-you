@@ -1,0 +1,14 @@
+17,13
+.           , .           , .           , .           , text_wire   , is          , stop        , .           , .           , .           , text_python , is          , you         , .           , .           , .           , .
+.           , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , .
+.           , tile        , .           , water       , water       , water       , water       , water       , water       , water       , water       , water       , water       , water       , .           , wire        , .
+.           , wire        , water       , wire        , wire        , wire        , wire        , wire        , bug         , wire        , wire        , wire        , wire        , wire        , water       , wire        , .
+.           , wire        , water       , wire        , .           , .           , .           , .           , .           , .           , .           , .           , .           , wire        , water       , wire        , .
+.           , wire        , water       , wire        , .           , text_bug    , .           , text_water  , on          , push        , .           , .           , .           , wire        , water       , wire        , .
+.           , wire        , water       , wire        , .           , is          , .           , .           , .           , .           , .           , .           , .           , wire        , water       , wire        , .
+.           , wire        , water       , wire        , .           , .           , .           , .           , python      , .           , .           , .           , .           , wire        , water       , wire        , .
+.           , wire        , water       , wire        , .           , .           , .           , .           , .           , .           , .           , .           , .           , wire        , water       , wire        , .
+.           , wire        , water       , wire        , wire        , wire        , wire        , wire        , bug         , wire        , wire        , wire        , wire        , wire        , water       , wire        , .
+.           , wire        , .           , water       , water       , water       , water       , water       , water       , water       , water       , water       , water       , water       , .           , tile        , .
+.           , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , wire        , .
+.           , .           , .           , .           , text_python , on          , text_bug    , and         , text_water  , and         , text_tile   , is          , win         , .           , .           , .           , .

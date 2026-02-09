@@ -1,0 +1,12 @@
+11,11
+text_python , is          , you         , .           , .           , .           , text_bug    , is          , text_bug    , and         , push
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .
+wire        , wire        , wire        , wire        , wire        , .           , .           , .           , .           , text_flag   , .
+wire        , .           , .           , .           , wire        , wire        , wire        , .           , .           , on          , .
+wire        , .           , python      , .           , .           , flag        , .           , .           , .           , text_python , .
+wire        , .           , .           , .           , wire        , wire        , wire        , .           , .           , is          , .
+wire        , wire        , wire        , wire        , wire        , .           , .           , .           , .           , text_bug    , .
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .
+.           , .           , .           , .           , .           , .           , .           , .           , .           , .           , .
+text_flag   , is          , win         , .           , .           , .           , .           , .           , text_wire   , is          , stop

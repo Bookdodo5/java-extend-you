@@ -2,6 +2,7 @@ package logic.level.turn;
 
 import model.entity.Direction;
 import model.entity.Entity;
+import model.map.LevelMap;
 
 import java.util.Objects;
 

@@ -16,15 +16,20 @@ public class CreateAction implements Action {
     private final int posY;
 
     public CreateAction(LevelMap levelMap, EntityType entityType, int posX, int posY) {
+        this(levelMap, entityType, Direction.DOWN, posX, posY);
+    }
+
+    public CreateAction(LevelMap levelMap, EntityType entityType, Direction direction, int posX, int posY) {
         this.levelMap = levelMap;
-        this.entity = new Entity(entityType);
         this.posX = posX;
         this.posY = posY;
+        this.entity = new Entity(entityType);
+        entity.setDirection(direction);
     }
 
     @Override
     public void execute() {
-        levelMap.setEntityPosition(entity, posX, posY);
+        levelMap.setPosition(entity, posX, posY);
     }
 
     @Override

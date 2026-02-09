@@ -106,6 +106,9 @@ public class GameController {
     }
 
     public void render(GraphicsContext gc) {
+        if(currentState == null) {
+            return;
+        }
         currentState.render(gc);
     }
 }

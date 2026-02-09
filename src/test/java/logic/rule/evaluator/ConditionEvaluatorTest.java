@@ -32,8 +32,8 @@ class ConditionEvaluatorTest {
         paper = new Entity(TypeRegistry.PAPER);
         java.setDirection(Direction.RIGHT);
         paper.setDirection(Direction.RIGHT);
-        levelMap.setEntityPosition(java, 5, 5);
-        levelMap.setEntityPosition(paper, 6, 5);
+        levelMap.setPosition(java, 5, 5);
+        levelMap.setPosition(paper, 6, 5);
     }
 
     @Test
@@ -53,7 +53,7 @@ class ConditionEvaluatorTest {
         assertFalse(evaluator.evaluate(java, conditions, levelMap, ruleset));
 
         //paper at (5,5) + java at (5,5)
-        levelMap.setEntityPosition(paper, 5, 5);
+        levelMap.setPosition(paper, 5, 5);
         assertTrue(evaluator.evaluate(java, conditions, levelMap, ruleset));
     }
 
@@ -69,19 +69,19 @@ class ConditionEvaluatorTest {
         assertTrue(evaluator.evaluate(java, conditions, levelMap, ruleset));
 
         //paper at (8,8) + baba at (5,5)
-        levelMap.setEntityPosition(paper, 8, 8);
+        levelMap.setPosition(paper, 8, 8);
         assertFalse(evaluator.evaluate(java, conditions, levelMap, ruleset));
 
         //paper at (7,5) + baba at (5,5)
-        levelMap.setEntityPosition(paper, 7, 5);
+        levelMap.setPosition(paper, 7, 5);
         assertFalse(evaluator.evaluate(java, conditions, levelMap, ruleset));
 
         //paper at (5,5) + baba at (5,5)
-        levelMap.setEntityPosition(paper, 5, 5);
+        levelMap.setPosition(paper, 5, 5);
         assertTrue(evaluator.evaluate(java, conditions, levelMap, ruleset));
 
         //paper at (4,4) + baba at (5,5)
-        levelMap.setEntityPosition(paper, 4, 4);
+        levelMap.setPosition(paper, 4, 4);
         assertTrue(evaluator.evaluate(java, conditions, levelMap, ruleset));
     }
 
@@ -105,18 +105,18 @@ class ConditionEvaluatorTest {
         assertFalse(evaluator.evaluate(java, conditions, levelMap, ruleset));
 
         // java is at (5,5) facing UP, paper is at (5,4)
-        levelMap.setEntityPosition(paper, 5, 4);
+        levelMap.setPosition(paper, 5, 4);
         assertTrue(evaluator.evaluate(java, conditions, levelMap, ruleset));
 
         // java is at (5,5) facing UP, paper is at (5,3)5
-        levelMap.setEntityPosition(paper, 5, 3);
+        levelMap.setPosition(paper, 5, 3);
         assertFalse(evaluator.evaluate(java, conditions, levelMap, ruleset));
     }
     
     @Test
     void testInstanceofCondition() {
         Entity error = new Entity(TypeRegistry.ERROR);
-        levelMap.setEntityPosition(error, 7, 7);
+        levelMap.setPosition(error, 7, 7);
 
         // ERROR instanceof ERROR should be true
         Entity instanceofText = new Entity(TypeRegistry.INSTANCEOF);

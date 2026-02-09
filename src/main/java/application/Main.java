@@ -39,7 +39,7 @@ public class Main extends Application {
         GameScreen screen = new GameScreen(TARGET_SCREEN_WIDTH, TARGET_SCREEN_HEIGHT);
 
         // REMOVE THIS LINE AFTER LEVEL SELECTOR IS DONE
-        gameController.playLevel("map/9_PRODUCT_OF_SUM.csv");
+        gameController.playLevel("map/17_LINKED_LIST.csv");
 
         screen.updateScale(root);
         root.widthProperty().addListener((_, _, _) -> screen.updateScale(root));

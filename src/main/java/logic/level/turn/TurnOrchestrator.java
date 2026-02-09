@@ -24,8 +24,8 @@ public class TurnOrchestrator {
     private final CollisionResolver collisionResolver;
     private final InteractionHandler interactionHandler;
 
-    public TurnOrchestrator(RuleEvaluator ruleEvaluator) {
-        this.ruleEvaluator = ruleEvaluator;
+    public TurnOrchestrator() {
+        this.ruleEvaluator = new RuleEvaluator();
         this.collisionResolver = new CollisionResolver();
         this.interactionHandler = new InteractionHandler();
     }
@@ -88,9 +88,12 @@ public class TurnOrchestrator {
     }
 
     private List<MoveIntent> getMoveIntents(LevelMap levelMap, Ruleset ruleset) {
-        var entities = ruleEvaluator.getEntitiesWithProperty(TypeRegistry.MOVE, levelMap, ruleset);
-        return entities.stream()
-                .map(entity -> new MoveIntent(entity, entity.getDirection(), true))
+        return ruleset.getRules().stream()
+                .filter(rule -> rule.getEffect() == TypeRegistry.MOVE)
+                .filter(rule -> rule.getVerb() == TypeRegistry.IS)
+                .flatMap(rule -> levelMap.getEntities().stream()
+                        .filter(entity -> ruleEvaluator.hasPropertyFromRule(entity, rule, levelMap, ruleset))
+                        .map(entity -> new MoveIntent(entity, entity.getDirection(), true)))
                 .toList();
     }
 }

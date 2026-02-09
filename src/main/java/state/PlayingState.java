@@ -10,16 +10,11 @@ import logic.level.LevelController;
 import logic.input.InputUtility;
 import model.entity.Entity;
 import model.entity.EntityType;
-import model.entity.word.WordType;
 import model.map.LevelMap;
 import model.particle.Particle;
-import model.rule.Rule;
-import model.rule.Ruleset;
-import utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -111,8 +106,8 @@ public class PlayingState implements GameState {
         for(Entity entity : entities) {
             EntityType entityType = entity.getType();
             Image image = entityType.getSpriteSheet();
-            int xCoordinate = levelMap.getEntityX(entity);
-            int yCoordinate = levelMap.getEntityY(entity);
+            int xCoordinate = levelMap.getX(entity);
+            int yCoordinate = levelMap.getY(entity);
 
             boolean isText = entityType.isText();
             boolean isActiveText = activeEntities.contains(entity);

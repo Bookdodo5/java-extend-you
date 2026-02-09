@@ -8,8 +8,8 @@ import model.map.LevelMap;
 import model.rule.Rule;
 import model.rule.Ruleset;
 
-import java.awt.*;
 import java.util.List;
+
 import model.rule.Transformation;
 
 /**
@@ -24,6 +24,12 @@ public class RuleEvaluator {
         inheritanceResolver = new InheritanceResolver();
     }
 
+    public boolean hasPropertyFromRule(Entity entity, Rule rule, LevelMap levelMap, Ruleset ruleset) {
+        boolean isSubject = inheritanceResolver.isInstanceOf(entity, rule.getSubject(), levelMap, ruleset);
+        boolean conditionsMet = conditionEvaluator.evaluate(entity, rule.getConditions(), levelMap, ruleset);
+        return isSubject && conditionsMet;
+    }
+
     public boolean hasProperty(Entity entity, PropertyType property, LevelMap levelMap, Ruleset ruleset) {
         // All text entities are inherently PUSH
         if (property == TypeRegistry.PUSH && entity.getType().isText()) {
@@ -32,8 +38,7 @@ public class RuleEvaluator {
 
         return ruleset.getRules().stream()
                 .filter(rule -> rule.getEffect() == property)
-                .filter(rule -> inheritanceResolver.isInstanceOf(entity, rule.getSubject(), levelMap, ruleset))
-                .anyMatch(rule -> conditionEvaluator.evaluate(entity, rule.getConditions(), levelMap, ruleset));
+                .anyMatch(rule -> hasPropertyFromRule(entity, rule, levelMap, ruleset));
     }
 
     public List<Entity> getEntitiesWithProperty(PropertyType property, LevelMap levelMap, Ruleset ruleset) {
@@ -44,12 +49,8 @@ public class RuleEvaluator {
 
     public List<Entity> getEntitiesWithPropertyAt(PropertyType property, LevelMap levelMap, Ruleset ruleset, int x, int y) {
         return getEntitiesWithProperty(property, levelMap, ruleset).stream()
-                .filter(entity -> levelMap.getEntityX(entity) == x && levelMap.getEntityY(entity) == y)
+                .filter(entity -> levelMap.getX(entity) == x && levelMap.getY(entity) == y)
                 .toList();
-    }
-
-    public List<Entity> getEntitiesWithPropertyAt(PropertyType property, LevelMap levelMap, Ruleset ruleset, Point position) {
-        return getEntitiesWithPropertyAt(property, levelMap, ruleset, position.x, position.y);
     }
 
     public boolean hasEntityWithPropertyAt(PropertyType property, LevelMap levelMap, Ruleset ruleset, int x, int y) {
@@ -57,27 +58,25 @@ public class RuleEvaluator {
                 .anyMatch(entity -> hasProperty(entity, property, levelMap, ruleset));
     }
 
-    public boolean hasEntityWithPropertyAt(PropertyType property, LevelMap levelMap, Ruleset ruleset, Point position) {
-        return hasEntityWithPropertyAt(property, levelMap, ruleset, position.x, position.y);
-    }
-
     public List<Transformation> getTransformations(LevelMap levelMap, Ruleset ruleset) {
-        List<EntityType> XisXTypes = ruleset.getRules().stream()
+        List<Entity> XisXEntities = ruleset.getRules().stream()
                 .filter(rule -> !(rule.getEffect() instanceof PropertyType))
                 .filter(rule -> rule.getVerb() == TypeRegistry.IS)
-                .filter(rule -> rule.getSubject() == rule.getEffect())
-                .map(Rule::getSubject)
+                .flatMap(rule -> levelMap.getEntities().stream()
+                        .filter(entity -> inheritanceResolver.isInstanceOf(entity, rule.getSubject(), levelMap, ruleset))
+                        .filter(entity -> conditionEvaluator.evaluate(entity, rule.getConditions(), levelMap, ruleset))
+                        .filter(entity -> entity.getType() == rule.getEffect()))
                 .toList();
 
         return ruleset.getRules().stream()
                 .filter(rule -> !(rule.getEffect() instanceof PropertyType))
                 .filter(rule -> rule.getVerb() == TypeRegistry.IS)
-                .filter(rule -> !XisXTypes.contains(rule.getSubject()))
                 .flatMap(rule -> {
                     EntityType targetType = rule.getEffect();
                     return levelMap.getEntities().stream()
                             .filter(entity -> inheritanceResolver.isInstanceOf(entity, rule.getSubject(), levelMap, ruleset))
                             .filter(entity -> conditionEvaluator.evaluate(entity, rule.getConditions(), levelMap, ruleset))
+                            .filter(entity -> !XisXEntities.contains(entity))
                             .map(entity -> new Transformation(entity, targetType));
                 })
                 .toList();
@@ -103,8 +102,8 @@ public class RuleEvaluator {
                         TypeRegistry.YOU,
                         levelMap,
                         ruleset,
-                        levelMap.getEntityX(entity),
-                        levelMap.getEntityY(entity))
+                        levelMap.getX(entity),
+                        levelMap.getY(entity))
                 );
     }
 }
