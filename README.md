@@ -1,3 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/IY9augGa)
 
 java --module-path "C:\Users\PC\javafx-sdk-25.0.2\lib" --add-modules javafx.controls,javafx.fxml --enable-native-access=ALL-UNNAMED -jar "C:\Users\PC\IdeaProjects\Progmeth_project\build\libs\Progmeth_project-1-with-sources.jar"
+
+https://fearless-mascara-8d7.notion.site/Java-Is-Hint-318907b6fd93807db7b2e0e1e478b3a2

@@ -74,7 +74,6 @@ public class Audio {
     public static void playMusic(String fileLocation) {
         try {
             if (fileLocation.equals(currentMusicFile)) {
-                System.out.println("Music file same as current");
                 return;
             }
 

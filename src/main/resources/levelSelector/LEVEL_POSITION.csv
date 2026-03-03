@@ -12,7 +12,7 @@ map/11_SHIFT_REGISTER.csv           , 13 , 2
 map/12_STATIC_HAZARD.csv            , 13 , 1
 map/13_PROPAGATION_DELAY.csv        , 14 , 1
 map/14_SPEED_UP.csv                 , 14 , 2
-map/15_TUNNEL_SPAGHETTI.csv         , 15 , 1
+map/15_SERIAL_COMMUNICATION.csv     , 15 , 1
 map/16_CONDITIONALS.csv             , 18 , 9
 map/17_LOOP.csv                     , 18 , 10
 map/18_NESTED_LOOP.csv              , 19 , 10

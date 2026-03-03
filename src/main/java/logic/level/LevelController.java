@@ -61,6 +61,7 @@ public class LevelController {
         this.levelMapPrototype = new LevelMap(levelMap);
         actionStack.clear();
         parseRules();
+        lastInputTime = System.currentTimeMillis();
     }
 
     /**
